@@ -1,5 +1,5 @@
 import React from "react";
-import "./NavBar.css"; // Asegúrate de tener este archivo CSS
+import "./NavBar.css"; 
 
 const NavBar = ({ onRegisterClick }) => {
   return (
@@ -9,7 +9,7 @@ const NavBar = ({ onRegisterClick }) => {
           Vitalia
         </a>
         <div>
-          {/* Botón de Registrarse */}
+         
           <button
             className="p-2 me-2 btn btn-info text-white border-0 rounded-3 shadow-lg"
             type="button"
@@ -18,7 +18,7 @@ const NavBar = ({ onRegisterClick }) => {
             Registrarse
           </button>
 
-          {/* Botón de Iniciar sesión */}
+      
           <button
             className="p-2 btn btn-info text-white border-0 rounded-3 shadow-lg"
             type="button"
