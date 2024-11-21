@@ -2,29 +2,33 @@
   "name": "c22-01-n-webapp",
   "version": "1.0.0",
   "description": "",
-  "main": "dist/app.js",
+  "main": "build/app.js",
   "scripts": {
-    "tsdev": "ts-node-dev --respawn --transpile-only -r tsconfig-paths/register src/app.ts",
+    "dev": "ts-node-dev --respawn --transpile-only -r tsconfig-paths/register src/app.ts",
     "nodedev": "nodemon --exec ts-node src/app.ts",
     "test": "echo \"Error: no test specified\" && exit 1",
     "watch": "tsc -w",
     "build": "tsc",
-    "server": "nodemon dist/app.js",
-    "start": "node dist/app.js"
+    "server": "nodemon build/app.js",
+    "start": "node build/app.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "c22-01-n-webapp": "file:",
+    "cors": "^2.8.5",
     "express": "^4.21.1",
     "morgan": "^1.10.0",
     "pg": "^8.13.1",
+    "reflect-metadata": "^0.2.2",
     "typeorm": "^0.3.20"
   },
   "devDependencies": {
+    "@types/cors": "^2.8.17",
     "@types/express": "^5.0.0",
     "@types/morgan": "^1.9.9",
+    "@types/node": "^22.9.1",
     "@types/pg": "^8.11.10",
     "dotenv": "^16.4.5",
     "nodemon": "^3.1.7",
@@ -34,13 +38,13 @@
     "typescript": "^5.6.3"
   },
   "_moduleAliases": {
-    "@server": "dist/server",
-    "@config": "dist/config",
-    "@controllers": "dist/controllers",
-    "@services": "dist/services",
-    "@repositories": "dist/repositories",
-    "@models": "dist/models",
-    "@routes": "dist/routes",
-    "@middlewares": "dist/middlewares"
+    "@server": "build/server",
+    "@config": "build/config",
+    "@controllers": "build/controllers",
+    "@services": "build/services",
+    "@repositories": "build/repositories",
+    "@models": "build/models",
+    "@routes": "build/routes",
+    "@middlewares": "build/middlewares"
   }
 }

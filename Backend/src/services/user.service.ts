@@ -1,29 +1,30 @@
-import { IUserService, IUserRepository, User } from "types/user.types";
+import { Users } from "@models/userModel";
+import { IUserService, IUserRepository } from "types/user.types";
 
 export class UserService implements IUserService {
-  private readonly userRepository: IUserRepository;
+  private userRepository: IUserRepository;
 
   constructor(userRepository: IUserRepository) {
     this.userRepository = userRepository;
   }
 
-  async createUser(user: User): Promise<User> {
+  async createUser(user: Users): Promise<Users> {
     return this.userRepository.create(user);
   }
 
-  /*async getUserById(id: number): Promise<User | null> {
-    return this.userRepository.findById(id);
-  }*/
-
-  async updateUser(user: User): Promise<User | null> {
-    return this.userRepository.update(user.id.toString(), user);
-  }
-
-  async deleteUser(id: number): Promise<void> {
-    await this.userRepository.delete(id.toString());
-  }
-
-  async getAllUsers(): Promise<User[]> {
+  async getAllUsers(): Promise<Users[]> {
     return this.userRepository.findAll();
+  }
+
+  async getUserById(id: number): Promise<Users | null> {
+    return this.userRepository.findById(id);
+  }
+
+  async updateUser(id: number, user: Partial<Users>): Promise<Users | null> {
+    return this.userRepository.update(id, user);
+  }
+
+  async deleteUser(id: number): Promise<boolean> {
+    return this.userRepository.delete(id);
   }
 }
