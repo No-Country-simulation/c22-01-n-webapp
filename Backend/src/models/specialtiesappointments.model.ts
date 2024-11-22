@@ -1,6 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, ManyToOne, Unique } from "typeorm";
-import { Specialties } from "./specialtiesModel";
-import { Appointment } from "./appointmentsModel";
+import { Specialties } from "./specialties.model";
+import { Appointment } from "./appointments.model";
 
 @Entity("specialties_and_appointments")
 @Unique(["specialty", "appointment"])

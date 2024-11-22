@@ -2,15 +2,15 @@
   "name": "c22-01-n-webapp",
   "version": "1.0.0",
   "description": "",
-  "main": "build/app.js",
+  "main": "build/index.js",
   "scripts": {
-    "dev": "ts-node-dev --respawn --transpile-only -r tsconfig-paths/register src/app.ts",
-    "nodedev": "nodemon --exec ts-node src/app.ts",
+    "dev": "ts-node-dev --respawn --transpile-only -r tsconfig-paths/register src/index.ts",
+    "nodedev": "nodemon --exec ts-node src/index.ts",
     "test": "echo \"Error: no test specified\" && exit 1",
     "watch": "tsc -w",
     "build": "tsc",
-    "server": "nodemon build/app.js",
-    "start": "node build/app.js"
+    "server": "nodemon build/index.js",
+    "start": "node build/index.js"
   },
   "keywords": [],
   "author": "",

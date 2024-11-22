@@ -5,9 +5,9 @@ import {
   ManyToOne,
   OneToMany,
 } from "typeorm";
-import { SpecialtyAndAppointment } from "./specialtiesappointmentsModel";
-import { Users } from "./userModel";
-import { Histories } from "./historiesModel";
+import { SpecialtyAndAppointment } from "./specialtiesappointments.model";
+import { Users } from "./user.model";
+import { Histories } from "./histories.model";
 
 @Entity("appointments")
 export class Appointment {

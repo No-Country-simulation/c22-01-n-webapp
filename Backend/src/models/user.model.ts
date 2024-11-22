@@ -4,13 +4,14 @@ import {
   Column,
   ManyToOne,
   OneToMany,
+  BaseEntity,
 } from "typeorm";
-import { Roles } from "./rolesModel";
-import { Appointment } from "./appointmentsModel";
-import { Histories } from "./historiesModel";
+import { Roles } from "./roles.model";
+import { Appointment } from "./appointments.model";
+import { Histories } from "./histories.model";
 
 @Entity("users")
-export class Users {
+export class Users extends BaseEntity {
   @PrimaryGeneratedColumn({ name: "pk_user" })
   id: number;
 

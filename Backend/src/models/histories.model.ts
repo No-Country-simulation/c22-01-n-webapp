@@ -6,8 +6,8 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
 } from "typeorm";
-import { Appointment } from "./appointmentsModel";
-import { Users } from "./userModel";
+import { Appointment } from "./appointments.model";
+import { Users } from "./user.model";
 
 @Entity("histories")
 export class Histories {

@@ -1,5 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from "typeorm";
-import { SpecialtyAndAppointment } from "./specialtiesappointmentsModel";
+import { SpecialtyAndAppointment } from "./specialtiesappointments.model";
 
 @Entity("specialties")
 export class Specialties {
