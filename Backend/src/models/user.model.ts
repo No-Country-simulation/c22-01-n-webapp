@@ -5,6 +5,7 @@ import {
   ManyToOne,
   OneToMany,
   BaseEntity,
+  JoinColumn,
 } from "typeorm";
 import { Roles } from "./roles.model";
 import { Appointment } from "./appointments.model";
@@ -12,34 +13,35 @@ import { Histories } from "./histories.model";
 
 @Entity("users")
 export class Users extends BaseEntity {
-  @PrimaryGeneratedColumn({ name: "pk_user" })
+  @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ name: "name", length: 25 })
+  @Column({ length: 25 })
   firstName: string;
 
-  @Column({ name: "lastname", length: 25 })
+  @Column({ length: 25 })
   lastName: string;
 
   @Column()
   age: number;
 
-  @Column({ name: "email", unique: true, length: 255 })
+  @Column({ unique: true, length: 255 })
   email: string;
 
-  @Column({ name: "password", length: 255 })
+  @Column({ length: 255 })
   password: string;
 
-  @Column({ name: "dni", length: 100 })
+  @Column({ length: 100 })
   dni: string;
 
-  @Column({ name: "picture", type: "text", nullable: true })
+  @Column({ type: "text", nullable: true })
   picture: string | null;
 
-  @Column({ name: "phone", length: 20 })
+  @Column({ length: 20 })
   phone: string;
 
   @ManyToOne(() => Roles, (role) => role.users)
+  @JoinColumn({ name: "rolId" })
   rol: Roles;
 
   @OneToMany(() => Appointment, (appointment) => appointment.user)

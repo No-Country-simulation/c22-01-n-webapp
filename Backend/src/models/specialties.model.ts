@@ -3,10 +3,10 @@ import { SpecialtyAndAppointment } from "./specialtiesappointments.model";
 
 @Entity("specialties")
 export class Specialties {
-  @PrimaryGeneratedColumn({ name: "pk_specialty" })
+  @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ name: "specialty", length: 50 })
+  @Column({ length: 50 })
   name: string;
 
   @OneToMany(
