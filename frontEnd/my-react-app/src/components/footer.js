@@ -2,7 +2,7 @@ import React from "react";
 
 const Footer = () => {
     return (
-        <footer className="footer" style={{ backgroundColor: '#0d6efd' }}>
+        <footer className="footer" style={{ backgroundColor: '#5adbdb' }}>
             <div className="container">
                 <div className="row justify-content-center">
                     <div className="col-sm-6 col-md-4 mt-4 col-lg-3 text-center text-sm-start">
@@ -10,22 +10,22 @@ const Footer = () => {
                             <h6 className="footer-heading text-uppercase text-white fw-bold">Información</h6>
                             <ul className="list-unstyled footer-link mt-4">
                                 <li className="mb-1">
-                                    <a href="https://codepen.io/Gaurav-Rana-the-reactor" className="text-white text-decoration-none fw-semibold">
+                                    <a href="https://zany-engine-r47jr9v5vprw3wp5j-3000.app.github.dev/aviso-de-privacidad" className="text-white text-decoration-none fw-semibold">
                                         Aviso de privacidad
                                     </a>
                                 </li>
                                 <li className="mb-1">
-                                    <a href="https://codepen.io/Gaurav-Rana-the-reactor" className="text-white text-decoration-none fw-semibold">
+                                    <a href="https://zany-engine-r47jr9v5vprw3wp5j-3000.app.github.dev/contacto" className="text-white text-decoration-none fw-semibold">
                                         Contacto
                                     </a>
                                 </li>
                                 <li className="mb-1">
-                                    <a href="https://codepen.io/Gaurav-Rana-the-reactor" className="text-white text-decoration-none fw-semibold">
+                                    <a href="https://zany-engine-r47jr9v5vprw3wp5j-3000.app.github.dev/register" className="text-white text-decoration-none fw-semibold">
                                         Registrate
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="https://codepen.io/Gaurav-Rana-the-reactor" className="text-white text-decoration-none fw-semibold">
+                                    <a href="https://zany-engine-r47jr9v5vprw3wp5j-3000.app.github.dev/agendar-cita" className="text-white text-decoration-none fw-semibold">
                                         Agendar cita
                                     </a>
                                 </li>

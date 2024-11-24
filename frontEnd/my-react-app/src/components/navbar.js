@@ -11,7 +11,17 @@ const NavBar = () => {
           Vitalia
         </a>
         <div>
-          {/* Usamos Link para redirigir al formulario de registro */}
+
+         
+          <Link to="/agendar-cita">
+            <button
+              className="p-2  me-2 ms-3 btn btn-info text-white border-0 rounded-3 shadow-lg"
+              type="button"
+            >
+              Agendar Cita
+            </button>
+          </Link>
+        
           <Link to="/register">
             <button
               className="p-2 me-2 btn btn-info text-white border-0 rounded-3 shadow-lg"
@@ -21,7 +31,7 @@ const NavBar = () => {
             </button>
           </Link>
 
-          {/* Usamos Link para redirigir al Login */}
+          
           <Link to="/login">
             <button
               className="p-2 btn btn-info text-white border-0 rounded-3 shadow-lg"
@@ -31,15 +41,7 @@ const NavBar = () => {
             </button>
           </Link>
 
-          {/* Botón que lleva al formulario de agendar cita */}
-          <Link to="/agendar-cita">
-            <button
-              className="p-2 ms-3 btn btn-info text-white border-0 rounded-3 shadow-lg"
-              type="button"
-            >
-              Agendar Cita
-            </button>
-          </Link>
+          
         </div>
       </div>
     </nav>

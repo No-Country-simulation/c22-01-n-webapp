@@ -10,6 +10,8 @@ import Footer from './components/footer';
 import Login from './components/Login';  // Asegúrate de importar el componente Login
 import "bootstrap/dist/css/bootstrap.min.css";
 import AgendarCita from './components/AgendarCita';
+import AvisoDePrivacidad from './components/AvisoDePrivacidad';
+import Contacto from './components/Contacto';
 
 const App = () => {
   const [showForm, setShowForm] = useState(false);
@@ -28,11 +30,15 @@ const App = () => {
             <DoctorCard />
             <Carrusel />
             <Footer />
+           
+
           </>
         } />
         <Route path="/login" element={<Login />} /> {/* Ruta de login */}
         <Route path="/register" element={<RegistrationForm />} />
         <Route path="/agendar-cita" element={<AgendarCita />} />
+        <Route path="/aviso-de-privacidad" element={<AvisoDePrivacidad />} />
+        
       </Routes>
     </div>
   );
