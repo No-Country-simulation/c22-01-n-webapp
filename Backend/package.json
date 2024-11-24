@@ -18,8 +18,11 @@
   "dependencies": {
     "c22-01-n-webapp": "file:",
     "express": "^4.21.1",
+    "glob": "^9.0.0",
+    "lru-cache": "^11.0.2",
     "morgan": "^1.10.0",
     "pg": "^8.13.1",
+    "rimraf": "^4.3.1",
     "typeorm": "^0.3.20"
   },
   "devDependencies": {
