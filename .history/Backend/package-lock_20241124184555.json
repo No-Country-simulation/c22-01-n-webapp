@@ -16,7 +16,11 @@
         "lru-cache": "^11.0.2",
         "morgan": "^1.10.0",
         "pg": "^8.13.1",
+<<<<<<< HEAD
+        "rimraf": "^4.3.1",
+=======
         "reflect-metadata": "^0.2.2",
+>>>>>>> 3cd739bc4a7121617e0fc7c967f81ddaea75f1a5
         "typeorm": "^0.3.20"
       },
       "devDependencies": {

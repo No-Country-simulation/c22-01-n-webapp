@@ -1,4 +1,5 @@
 import React from "react";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Carrusel = () => {
   return (
@@ -15,8 +16,8 @@ const Carrusel = () => {
             className="d-block w-100"
             alt="..."
             style={{
-              objectFit: "cover", // Asegura que la imagen ocupe el espacio sin distorsionarse
-              height: "300px", // Ajusta la altura de la imagen según lo necesites
+              objectFit: "cover", 
+              height: "300px", 
             }}
           />
         </div>
@@ -28,8 +29,8 @@ const Carrusel = () => {
             className="d-block w-100"
             alt="..."
             style={{
-              objectFit: "cover", // Asegura que la imagen ocupe el espacio sin distorsionarse
-              height: "300px", // Ajusta la altura de la imagen
+              objectFit: "cover", 
+              height: "300px", 
             }}
           />
         </div>
@@ -41,8 +42,8 @@ const Carrusel = () => {
             className="d-block w-100"
             alt="..."
             style={{
-              objectFit: "cover", // Asegura que la imagen ocupe el espacio sin distorsionarse
-              height: "300px", // Ajusta la altura de la imagen
+              objectFit: "cover", 
+              height: "300px", 
             }}
           />
         </div>
