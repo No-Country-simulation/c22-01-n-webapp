@@ -15,6 +15,10 @@
   box-shadow: 0 8px 15px rgba(0, 123, 255, 0.5); /* Sombra más pronunciada */
 }
 
+.navbar {
+  background-color: #5adbdb; /* Color azul oscuro */
+  padding: 10px;
+}
 
 /* Estilo para la card */
 .card {
@@ -43,4 +47,9 @@
   border-color: #004085;      /* Azul más oscuro para el borde */
   color: white;               /* El texto sigue siendo blanco */
   box-shadow: 0 8px 15px rgba(0, 123, 255, 0.5); /* Sombra más pronunciada */
+}
+
+
+.jumbotron-text-black {
+  color: black;
 }

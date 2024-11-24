@@ -5,9 +5,10 @@ import RegistrationForm from "./components/RegistrationForm";
 import Carrusel from "./components/Carrusel";
 import DoctorCard from "./components/DoctorCard";
 import Footer from "./components/footer";
+import Login from "./components/Login";
+import AgendarCita from "./components/AgendarCita";
 import "bootstrap/dist/css/bootstrap.min.css";
-
-
+import { Routes, Route } from "react-router-dom";  // Importa Routes y Route
 
 const App = () => {
   const [showForm, setShowForm] = useState(false); 
@@ -18,19 +19,23 @@ const App = () => {
 
   return (
     <div>
-      
-      {!showForm && (
-        <>
-          <NavBar onRegisterClick={handleRegisterClick} />
+      {/* Ya no necesitas el Router aquí */}
+      <NavBar onRegisterClick={handleRegisterClick} />
+      <Routes>
+        {/* Define las rutas para las diferentes vistas */}
+        <Route path="/" element={<>
           <Jumbotron />
           <DoctorCard />
           <Carrusel />
           <Footer />
-          
-        </>
-      )}
+        </>} />
 
-            {showForm && <RegistrationForm />}
+        <Route path="/login" element={<Login />} />  {/* Ruta para login */}
+        <Route path="/agendar-cita" element={<AgendarCita />} />  {/* Ruta para agendar cita */}
+        
+        {/* Condición para mostrar el formulario de registro */}
+        <Route path="/register" element={showForm ? <RegistrationForm /> : <></>} /> 
+      </Routes>
     </div>
   );
 };
