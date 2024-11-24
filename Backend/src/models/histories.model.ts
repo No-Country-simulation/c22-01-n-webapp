@@ -6,29 +6,22 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
 } from "typeorm";
-import { Appointment } from "./appointments.model";
-import { Users } from "./user.model";
+import { Patient } from "./patients.model";
 
 @Entity("histories")
-export class Histories {
+export class History {
   @PrimaryGeneratedColumn()
-  id: number;
-
-  @ManyToOne(() => Users, (user) => user.histories)
-  user: Users;
-
-  @ManyToOne(() => Appointment, (appointment) => appointment.histories)
-  appointment: Appointment;
+  historyId: number;
 
   @Column()
   description: string;
-
-  @Column()
-  recipe: string;
 
   @CreateDateColumn()
   createdAt: Date;
 
   @UpdateDateColumn()
   updatedAt: Date;
+
+  @ManyToOne(() => Patient, (patient) => patient.histories)
+  patient: Patient;
 }

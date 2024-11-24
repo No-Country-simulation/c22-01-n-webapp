@@ -1,14 +1,14 @@
 import { Request, Response } from "express";
-import { Users } from "@models/user.model";
+import { User } from "@models/users.model";
 import { AppDataSource } from "@config/database.config";
-import { Roles } from "@models/roles.model";
+import { Role } from "@models/roles.model";
 
 class UsersController {
-  constructor() {}
+  //constructor() {}
 
   async getUsers(_req: Request, res: Response) {
     try {
-      const users = await Users.find({});
+      const users = await User.find({});
       res.status(200).json(users);
     } catch (err) {
       if (err instanceof Error) {
@@ -24,7 +24,7 @@ class UsersController {
     }
 
     try {
-      const user = await Users.findOneBy({ id: Number(id) });
+      const user = await User.findOneBy({ userId: Number(id) });
       if (!user) {
         res.status(404).json({ error: `User with ID ${id} not found.` });
       }
@@ -49,17 +49,17 @@ class UsersController {
         dni,
         picture,
         phone,
-        rol,
+        role,
       } = req.body;
 
-      const roleRepository = AppDataSource.getRepository(Roles);
-      const role = await roleRepository.findOne({ where: { id: rol } });
+      const roleRepository = AppDataSource.getRepository(Role);
+      const roles = await roleRepository.findOne({ where: { roleId: role } });
 
-      if (!role) {
+      if (!roles) {
         res.status(400).json({ error: "The specified role does not exist." });
       }
 
-      const userRepository = AppDataSource.getRepository(Users);
+      const userRepository = AppDataSource.getRepository(User);
       const user = userRepository.create({
         firstName,
         lastName,
@@ -69,7 +69,7 @@ class UsersController {
         dni,
         picture,
         phone,
-        rol,
+        role,
       });
 
       await userRepository.save(user);
@@ -83,12 +83,12 @@ class UsersController {
   async updateUser(req: Request, res: Response) {
     const { id } = req.params;
     try {
-      const user = await Users.findOneBy({ id: Number(id) });
+      const user = await User.findOneBy({ userId: Number(id) });
       if (!user) {
         throw new Error(`User with ID ${id} not found.`);
       }
-      await Users.update({ id: Number(id) }, req.body);
-      const updatedUser = await Users.findOneBy({ id: Number(id) });
+      await User.update({ userId: Number(id) }, req.body);
+      const updatedUser = await User.findOneBy({ userId: Number(id) });
       res.status(200).json(updatedUser);
     } catch (error) {
       if (error instanceof Error) {
@@ -100,11 +100,11 @@ class UsersController {
   async deleteUser(req: Request, res: Response) {
     const { id } = req.params;
     try {
-      const user = await Users.findOneBy({ id: Number(id) });
+      const user = await User.findOneBy({ userId: Number(id) });
       if (!user) {
         throw new Error(`User with ID ${id} not found.`);
       }
-      const result = await Users.delete({ id: Number(id) });
+      const result = await User.delete({ userId: Number(id) });
       if (!result) {
         res.status(404).json({ error: `User with ID ${id} not found.` });
       }

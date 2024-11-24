@@ -3,38 +3,28 @@ import {
   PrimaryGeneratedColumn,
   Column,
   ManyToOne,
-  OneToMany,
+  CreateDateColumn,
 } from "typeorm";
-import { SpecialtyAndAppointment } from "./specialtiesappointments.model";
-import { Users } from "./user.model";
-import { Histories } from "./histories.model";
+import { Patient } from "./patients.model";
+import { Doctor } from "./doctors.model";
 
 @Entity("appointments")
 export class Appointment {
   @PrimaryGeneratedColumn()
-  id: number;
+  appointmentId: number;
 
-  @ManyToOne(() => Users, (user) => user.appointments)
-  user: Users;
-
-  @Column({
-    type: "timestamp",
-    default: () => "CURRENT_TIMESTAMP",
-  })
+  @CreateDateColumn()
   registrationDate: Date;
 
-  @Column({ type: "timestamp", nullable: true })
+  @CreateDateColumn()
   appointmentDate: Date;
 
-  @Column({ type: "boolean" })
+  @Column()
   isCancelled: boolean;
 
-  @OneToMany(
-    () => SpecialtyAndAppointment,
-    (specialtyAndAppointment) => specialtyAndAppointment.appointment
-  )
-  specialtyAppointments: SpecialtyAndAppointment[];
+  @ManyToOne(() => Patient, (patient) => patient.appointments)
+  patient: Patient;
 
-  @OneToMany(() => Histories, (histories) => histories.appointment)
-  histories: Histories[];
+  @ManyToOne(() => Doctor, (doctor) => doctor.appointments)
+  doctor: Doctor;
 }

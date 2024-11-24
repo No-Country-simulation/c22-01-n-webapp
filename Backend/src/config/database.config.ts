@@ -1,9 +1,12 @@
+import { Admin } from "@models/admins.model";
 import { Appointment } from "@models/appointments.model";
-import { Histories } from "@models/histories.model";
-import { Roles } from "@models/roles.model";
-import { SpecialtyAndAppointment } from "@models/specialtiesappointments.model";
-import { Specialties } from "@models/specialties.model";
-import { Users } from "@models/user.model";
+import { Doctor } from "@models/doctors.model";
+import { History } from "@models/histories.model";
+import { Patient } from "@models/patients.model";
+import { Role } from "@models/roles.model";
+import { Schedule } from "@models/schedules.model";
+import { Specialty } from "@models/specialties.model";
+import { User } from "@models/users.model";
 import dotenv from "dotenv";
 import "reflect-metadata";
 import { DataSource } from "typeorm";
@@ -18,14 +21,17 @@ export const AppDataSource = new DataSource({
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
   synchronize: true, // Solo para desarrollo, elimina en producción
-  logging: false,
+  logging: true,
   entities: [
+    Admin,
     Appointment,
-    Histories,
-    Roles,
-    Specialties,
-    SpecialtyAndAppointment,
-    Users,
+    Doctor,
+    History,
+    Patient,
+    Role,
+    Schedule,
+    Specialty,
+    User,
   ],
   //migrations: [__dirname + "/migrations/*.ts"],
 });
