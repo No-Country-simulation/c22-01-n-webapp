@@ -5,6 +5,7 @@ import {
   OneToOne,
   JoinColumn,
   ManyToMany,
+  Column,
 } from "typeorm";
 import { User } from "./users.model";
 import { Appointment } from "./appointments.model";
@@ -15,6 +16,9 @@ import { Schedule } from "./schedules.model";
 export class Doctor {
   @PrimaryGeneratedColumn()
   doctorId: number;
+
+  @Column()
+  licenseNumber: number;
 
   @OneToOne(() => User, (user) => user.doctor)
   @JoinColumn({ name: "userId" })

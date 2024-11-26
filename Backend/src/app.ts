@@ -1,10 +1,7 @@
-import userRoutes from "@routes/user.routes";
 import app from "./config/app.config";
 import { AppDataSource } from "./config/database.config";
 
 const port = process.env.PORT ?? 4000;
-
-app.use("/api", userRoutes);
 
 async function startServer() {
   try {

@@ -4,6 +4,7 @@ import {
   OneToMany,
   OneToOne,
   JoinColumn,
+  Column,
 } from "typeorm";
 import { User } from "./users.model";
 import { Appointment } from "./appointments.model";
@@ -13,6 +14,12 @@ import { History } from "./histories.model";
 export class Patient {
   @PrimaryGeneratedColumn()
   patientId: number;
+
+  @Column()
+  healthInsurance: string;
+
+  @Column()
+  address: string;
 
   @OneToOne(() => User, (user) => user.patient)
   @JoinColumn({ name: "userId" })
