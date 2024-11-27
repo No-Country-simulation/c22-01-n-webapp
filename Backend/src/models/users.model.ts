@@ -17,29 +17,14 @@ export class User extends BaseEntity {
   @PrimaryGeneratedColumn()
   userId: number;
 
-  @Column({ length: 25 })
-  firstName: string;
-
-  @Column({ length: 25 })
-  lastName: string;
-
-  @Column()
-  age: number;
+  @Column({ length: 50 })
+  userName: string;
 
   @Column({ unique: true, length: 255 })
   email: string;
 
   @Column({ length: 255 })
   password: string;
-
-  @Column({ length: 100 })
-  dni: string;
-
-  @Column({ nullable: true })
-  picture: string;
-
-  @Column({ length: 20 })
-  phone: string;
 
   @ManyToOne(() => Role, (role) => role.users)
   @JoinColumn({ name: "roleId" })

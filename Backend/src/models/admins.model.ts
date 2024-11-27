@@ -12,10 +12,13 @@ export class Admin {
   @PrimaryGeneratedColumn()
   adminId: number;
 
-  @OneToOne(() => User, (user) => user.admin)
-  @JoinColumn({ name: "userId" })
-  user: User;
+  @Column({ length: 20 })
+  dni: string;
 
   @Column({ length: 50 })
   position: string;
+
+  @OneToOne(() => User, (user) => user.admin)
+  @JoinColumn({ name: "userId" })
+  user: User;
 }

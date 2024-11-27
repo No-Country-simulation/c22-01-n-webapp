@@ -16,7 +16,16 @@ export class Patient {
   patientId: number;
 
   @Column()
+  age: number;
+
+  @Column({ length: 20 })
+  dni: string;
+
+  @Column()
   healthInsurance: string;
+
+  @Column({ length: 15 })
+  phone: string;
 
   @Column()
   address: string;

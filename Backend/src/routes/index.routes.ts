@@ -8,12 +8,14 @@ const cleanFileName = (fileName: string) => {
   return fileName.replace(".routes", "").split(".").shift();
 };
 
+console.log("Cargando rutas..."); // Agregar un log aquí
+
 readdirSync(PATH_ROUTER).forEach((fileName) => {
   const cleanName = cleanFileName(fileName);
   if (cleanName !== "index") {
+    console.log(`Cargando ruta: ${cleanName}`); // Agregar log para verificar el nombre del archivo de ruta
     import(`./${cleanName}.routes`)
       .then((moduleRouter) => {
-        console.log(`Cargando ruta: /${cleanName}`);
         router.use(`/${cleanName}`, moduleRouter.router);
       })
       .catch((error) => {

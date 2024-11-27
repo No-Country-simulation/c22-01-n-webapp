@@ -10,12 +10,20 @@ import {
 import { User } from "./users.model";
 import { Appointment } from "./appointments.model";
 import { Specialty } from "./specialties.model";
-import { Schedule } from "./schedules.model";
 
 @Entity("doctors")
 export class Doctor {
   @PrimaryGeneratedColumn()
   doctorId: number;
+
+  @Column({ length: 25 })
+  dni: string;
+
+  @Column({ nullable: true })
+  picture: string;
+
+  @Column({ length: 50 })
+  phone: string;
 
   @Column()
   licenseNumber: number;
@@ -29,7 +37,4 @@ export class Doctor {
 
   @ManyToMany(() => Specialty, (specialty) => specialty.doctors)
   specialties: Specialty[];
-
-  @OneToMany(() => Schedule, (schedule) => schedule.doctor)
-  schedule: Schedule[];
 }

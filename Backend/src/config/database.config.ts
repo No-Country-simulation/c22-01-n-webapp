@@ -4,7 +4,6 @@ import { Doctor } from "@models/doctors.model";
 import { History } from "@models/histories.model";
 import { Patient } from "@models/patients.model";
 import { Role } from "@models/roles.model";
-import { Schedule } from "@models/schedules.model";
 import { Specialty } from "@models/specialties.model";
 import { User } from "@models/users.model";
 import dotenv from "dotenv";
@@ -29,7 +28,6 @@ export const AppDataSource = new DataSource({
     History,
     Patient,
     Role,
-    Schedule,
     Specialty,
     User,
   ],

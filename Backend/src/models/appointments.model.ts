@@ -16,7 +16,13 @@ export class Appointment {
   @CreateDateColumn()
   registrationDate: Date;
 
-  @CreateDateColumn()
+  @Column()
+  endTime: Date;
+
+  @Column()
+  starTime: Date;
+
+  @Column()
   appointmentDate: Date;
 
   @Column()
