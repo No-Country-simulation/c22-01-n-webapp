@@ -13,23 +13,23 @@ import { DataSource } from "typeorm";
 dotenv.config();
 
 export const AppDataSource = new DataSource({
-  type: "postgres",
-  host: process.env.DB_HOST,
-  port: 5432,
-  username: process.env.DB_USERNAME,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_NAME,
-  synchronize: true, // Solo para desarrollo, elimina en producción
-  logging: false,
-  entities: [
-    Admin,
-    Appointment,
-    Doctor,
-    History,
-    Patient,
-    Role,
-    Specialty,
-    User,
-  ],
-  //migrations: [__dirname + "/migrations/*.ts"],
+	type: "postgres",
+	host: process.env.DB_HOST,
+	port: 5432,
+	username: process.env.DB_USERNAME,
+	password: process.env.DB_PASSWORD,
+	database: process.env.DB_NAME,
+	synchronize: false, // Solo para desarrollo, elimina en producción
+	logging: false,
+	entities: [
+		Admin,
+		Appointment,
+		Doctor,
+		History,
+		Patient,
+		Role,
+		Specialty,
+		User,
+	],
+	//migrations: [__dirname + "/migrations/*.ts"],
 });

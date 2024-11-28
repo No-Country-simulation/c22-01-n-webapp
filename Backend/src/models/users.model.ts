@@ -1,41 +1,45 @@
 import {
-  Entity,
-  PrimaryGeneratedColumn,
-  Column,
-  ManyToOne,
-  BaseEntity,
-  JoinColumn,
-  OneToOne,
+	Entity,
+	PrimaryGeneratedColumn,
+	Column,
+	ManyToOne,
+	BaseEntity,
+	JoinColumn,
 } from "typeorm";
 import { Role } from "./roles.model";
-import { Doctor } from "./doctors.model";
-import { Patient } from "./patients.model";
-import { Admin } from "./admins.model";
 
 @Entity("users")
 export class User extends BaseEntity {
-  @PrimaryGeneratedColumn()
-  userId: number;
+	@PrimaryGeneratedColumn()
+	pk_user: number;
 
-  @Column({ length: 50 })
-  userName: string;
+	@Column({ length: 25 })
+	name: string;
 
-  @Column({ unique: true, length: 255 })
-  email: string;
+	@Column({ length: 25 })
+	lastname: string;
 
-  @Column({ length: 255 })
-  password: string;
+	@Column("int")
+	age: number;
 
-  @ManyToOne(() => Role, (role) => role.users)
-  @JoinColumn({ name: "roleId" })
-  role: Role;
+	@Column({ unique: true, length: 255 })
+	email: string;
 
-  @OneToOne(() => Doctor, (doctor) => doctor.user)
-  doctor: Doctor;
+	@Column({ length: 255 })
+	password: string;
 
-  @OneToOne(() => Patient, (patient) => patient.user)
-  patient: Patient;
+	@Column({ length: 100 })
+	dni: string;
 
-  @OneToOne(() => Admin, (admin) => admin.user)
-  admin: Admin;
+	@Column({ type: "text", nullable: true })
+	picture: string | null;
+	@Column({ length: 20 })
+	phone: string;
+
+	@ManyToOne(() => Role, (role) => role.users)
+	@JoinColumn({ name: "fk_rol" })
+	role: Role;
+
+	@Column({ type: "varchar", length: 25, nullable: true })
+	specialty: string | null;
 }

@@ -1,85 +1,144 @@
 import { Request, Response } from "express";
-import { handlerError } from "@middlewares/error.handler";
 import { UserService } from "@services/user.service";
+import { handlerError } from "@middlewares/error.handler";
 
 class UserController {
-  private readonly userService: UserService;
+  // INSTANCIAMOS NUESTRA CLASE USUARIO SERVICES
+	private readonly userService: UserService;
 
   constructor() {
-    this.userService = new UserService();
-  }
+    // INICIALIZAMOS EL OBJETO USERSERVICES
+		this.userService = new UserService();
+	}
 
-  // Obtener todos los usuarios
-  async getAllUsers(_req: Request, res: Response) {
-    try {
-      const users = await this.userService.getAllUsers();
-      res.status(200).json(users);
-    } catch (err) {
-      if (err instanceof Error) {
-        handlerError(res, "ERROR_GET_USERS", 404);
-      } else {
-        handlerError(res, "UNKNOWN_ERROR", 500);
-      }
-    }
-  }
+	// OBTENER LISTA DE USUARIOS
+	getAllUsersController = async (
+		_req: Request,
+		res: Response
+	): Promise<Response | any> => {
+		try {
+			const users = await this.userService.getAllUsersService();
 
-  // Obtener un usuario por ID
-  async getUserById(req: Request, res: Response) {
-    const { id } = req.params;
+			if (users.length === 0) {
+			}
 
-    if (!id || isNaN(Number(id))) {
-      handlerError(res, "INVALID_USER_ID", 400);
-      return;
-    }
+			res
+				.status(200)
+				.json(
+					users.length === 0
+						? "No hay registros en la base de datos"
+						: { message: "Lista de Usuarios", list: users }
+				);
+		} catch (err) {
+			if (err instanceof Error) {
+				handlerError(res, "ERROR_GET_USERS", 404);
+			} else {
+				handlerError(res, "UNKNOWN_ERROR", 500);
+			}
+		}
+	};
 
-    try {
-      const user = await this.userService.getUserById(Number(id));
-      if (!user) {
-        handlerError(res, "USER_NOT_FOUND", 404);
-        return;
-      }
+	// OBTENER USUARIO POR ID
+	getUserByIdController = async (req: Request, res: Response) => {
+		try {
+			const id = parseInt(req.params["id"]);
 
-      res.status(200).json(user);
-    } catch (err) {
-      if (err instanceof Error) {
-        handlerError(res, "ERROR_GET_USER", 404);
-      }
-    }
-  }
+			const user = await this.userService.getUserById(id);
 
-  // Crear un nuevo usuario
-  createUser = async (req: Request, res: Response) => {
-    try {
-      const { userName, email, password, role } = req.body;
-      const user = this.userService.createUser(userName, email, password, role);
-      res.status(201).json(user);
-    } catch (err) {
-      if (err instanceof Error) {
-        handlerError(res, "ERROR_CREATE_USER", 400);
-      } else {
-        handlerError(res, "UNKNOWN_ERROR", 500);
-      }
-    }
-  };
+			res
+				.status(200)
+				.json(
+					!user ? { message: `NO SE ENCONTRO REGISTRO CON EL ID ${id}` } : user
+				);
+		} catch (err) {
+			if (err instanceof Error) {
+				handlerError(res, `${err.message}`, 404);
+			}
+		}
+	};
 
-  // Eliminar un usuario
-  async deleteUser(req: Request, res: Response) {
-    const { id } = req.params;
-    if (!id || isNaN(Number(id))) {
-      return handlerError(res, "INVALID_USER_ID", 400);
-    }
+	// REGISTRAR USUARIOS
+	createUserController = async (
+		req: Request,
+		res: Response
+	): Promise<Response | any> => {
+		try {
+			const result = await this.userService.createUserService(req.body);
+			result.password = "";
+			return res.status(201).json({
+				message: "REGISTRO EXITOSO",
+				user: result,
+			});
+		} catch (err) {
+			if (err instanceof Error) {
+				return res.status(400).json({
+					message: "ERROR AL CREAR USUARIO",
+					error: err.message,
+				});
+			} else {
+				return res.status(500).json({
+					message: "ERROR DESCONOCIDO",
+					error: "ERROR DESCONOCIDO",
+				});
+			}
+		}
+	};
 
-    try {
-      const result = await this.userService.deleteUser(Number(id));
-      if (!result) {
-        return handlerError(res, "USER_NOT_FOUND", 404);
-      }
+	// LOGIN USUARIO
+	loginController = async (
+		req: Request,
+		res: Response
+	): Promise<Response | any> => {
+		let body = {
+			email: "",
+			password: "",
+		};
 
-      res.status(204).json({ message: `User with ID ${id} has been deleted.` });
-    } catch (err) {
-      handlerError(res, "UNKNOWN_ERROR", 500);
-    }
-  }
+		try {
+			body = req.body;
+			const result = await this.userService.loginService(
+				body.email,
+				body.password
+			);
+			return res.status(200).json({
+				status: "success",
+				message: "Inicio de sesión exitoso",
+				id: result.pk_user,
+				email: result.email,
+			});
+		} catch (err) {
+			if (err instanceof Error) {
+				return res.status(401).json({
+					message: "ACCESO DENEGADO",
+					error: err.message,
+				});
+			} else {
+				return res.status(500).json({
+					message: "ERROR DESCONOCIDO",
+					error: "ERROR DESCONOCIDO",
+				});
+			}
+		}
+	};
+
+	// Eliminar un usuario
+	//   async deleteUser(req: Request, res: Response) {
+	//     const { id } = req.params;
+	//     if (!id || isNaN(Number(id))) {
+	//       return handlerError(res, "INVALID_USER_ID", 400);
+	//     }
+
+	//     try {
+	//       const result = await this.userService.deleteUser(Number(id));
+	//       if (!result) {
+	//         return handlerError(res, "USER_NOT_FOUND", 404);
+	//       }
+
+	//       res.status(204).json({ message: `User with ID ${id} has been deleted.` });
+	//     } catch (err) {
+	//       handlerError(res, "UNKNOWN_ERROR", 500);
+	//     }
+	//   }
 }
 
 export default new UserController();
