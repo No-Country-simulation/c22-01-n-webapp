@@ -26,9 +26,10 @@ const App = () => {
       <Routes>
         <Route path="/" element={
           <>
-            <Jumbotron />
-            <DoctorCard />
             <Carrusel />
+            
+            <DoctorCard />
+            <Jumbotron />
             <Footer />
            
 
