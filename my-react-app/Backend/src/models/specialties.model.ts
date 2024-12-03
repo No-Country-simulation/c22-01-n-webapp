@@ -1,19 +1,17 @@
-import {
-  Entity,
-  PrimaryGeneratedColumn,
-  Column,
-  ManyToMany,
-} from "typeorm";
-import { Doctor } from "./doctors.model";
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from "typeorm";
+import { SpecialtyAndAppointment } from "./specialtiesandappointments.model";
 
 @Entity("specialties")
 export class Specialty {
   @PrimaryGeneratedColumn()
-  specialtyId: number;
+  pk_specialty: number;
 
-  @Column({ length: 50, unique: true })
-  name: string;
+  @Column({ length: 50 })
+  specialty: string;
 
-  @ManyToMany(() => Doctor, (doctor) => doctor.specialties)
-  doctors: Doctor[];
+  @OneToMany(
+    () => SpecialtyAndAppointment,
+    (specialtyAndAppointment) => specialtyAndAppointment.specialty
+  )
+  specialtiesAppointments: SpecialtyAndAppointment[];
 }

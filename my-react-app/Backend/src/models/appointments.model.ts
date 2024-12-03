@@ -3,34 +3,41 @@ import {
   PrimaryGeneratedColumn,
   Column,
   ManyToOne,
+  OneToMany,
   CreateDateColumn,
+  JoinColumn,
 } from "typeorm";
-import { Patient } from "./patients.model";
-import { Doctor } from "./doctors.model";
+import { User } from "./users.model";
+import { SpecialtyAndAppointment } from "./specialtiesandappointments.model";
+import { History } from "./histories.model";
 
 @Entity("appointments")
 export class Appointment {
   @PrimaryGeneratedColumn()
-  appointmentId: number;
+  pk_appointment: number;
 
-  @CreateDateColumn()
+  @CreateDateColumn({ name: "registration_date" })
   registrationDate: Date;
 
-  @Column()
-  endTime: Date;
-
-  @Column()
-  starTime: Date;
-
-  @Column()
+  @Column({ name: "appointment_date", nullable: true })
   appointmentDate: Date;
 
-  @Column()
+  @Column({ name: "hour_appointment", type: "time", nullable: true })
+  hourAppointment: string;
+
+  @Column({ name: "is_cancelled", default: false })
   isCancelled: boolean;
 
-  @ManyToOne(() => Patient, (patient) => patient.appointments)
-  patient: Patient;
+  @ManyToOne(() => User, (user) => user.appointments)
+  @JoinColumn({ name: "fk_user" })
+  user: User;
 
-  @ManyToOne(() => Doctor, (doctor) => doctor.appointments)
-  doctor: Doctor;
+  @OneToMany(
+    () => SpecialtyAndAppointment,
+    (specialtyAndAppointment) => specialtyAndAppointment.appointment
+  )
+  specialtiesAppointments: SpecialtyAndAppointment[];
+
+  @OneToMany(() => History, (history) => history.appointment)
+  histories: History[];
 }

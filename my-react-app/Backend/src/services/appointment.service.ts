@@ -1,69 +1,80 @@
 import { AppDataSource } from "@config/database.config";
+import { AppointmentResponseDto } from "@dtos/appointmentResponseDto";
 import { Appointment } from "@models/appointments.model";
-import { LessThanOrEqual, MoreThanOrEqual } from "typeorm";
+import { User } from "@models/users.model";
+import { checkAvailable } from "@utils/checkAvailable";
 
 export class AppointmentService {
-  getAllAppointments = async (): Promise<Appointment[]> => {
-    const appointmentsRepository = AppDataSource.getRepository(Appointment);
-    const appointments = await appointmentsRepository.find();
-    return appointments;
+  private readonly repository = AppDataSource.getRepository(Appointment);
+
+  // Obtener citas
+  getAllAppointment = async (): Promise<AppointmentResponseDto[]> => {
+    const appointments = await this.repository.find({ relations: ["user"] });
+    return appointments.map((appointment) => ({
+      pk_appointment: appointment.pk_appointment,
+      registration_date: appointment.registrationDate,
+      appointment_date: appointment.appointmentDate,
+      hour_appointment: appointment.hourAppointment,
+      is_cancelled: appointment.isCancelled,
+      fk_user: appointment.user
+        ? {
+            name: appointment.user.name,
+            lastname: appointment.user.lastname,
+            age: appointment.user.age,
+            dni: appointment.user.dni,
+            picture: appointment.user.picture,
+          }
+        : undefined, // Si no hay usuario, retorna undefined
+    }));
   };
 
+  // Obtener cita por ID
   getAppointmentById = async (
-    appointmentId: number
-  ): Promise<Appointment | null> => {
-    const appointmentsRepository = AppDataSource.getRepository(Appointment);
-    const appointment = await appointmentsRepository.findOneBy({
-      appointmentId,
+    id: number
+  ): Promise<AppointmentResponseDto | null> => {
+    const appointment = await this.repository.findOne({
+      where: { pk_appointment: id },
+      relations: ["user"],
     });
-    return appointment;
-  };
-
-  createAppointment = async (
-    doctorId: number,
-    patientId: number,
-    appointmentDate: Date,
-    startTime: Date,
-    endTime: Date
-  ): Promise<Appointment> => {
-    const hasConflict = await this.checkAppointmentConflict(
-      doctorId,
-      appointmentDate,
-      startTime,
-      endTime
-    );
-    if (hasConflict) {
-      throw new Error("APPOINTMENT_CONFLICT");
+    if (!appointment) {
+      return null; // Devuelve null si no se encuentra
     }
-
-    const appointmentRepository = AppDataSource.getRepository(Appointment);
-    const appointment = appointmentRepository.create({
-      doctor: { doctorId },
-      patient: { patientId },
-      appointmentDate,
-      starTime: startTime,
-      endTime: endTime,
-      registrationDate: new Date(),
-      isCancelled: false,
-    });
-    return await appointmentRepository.save(appointment);
+    return {
+      pk_appointment: appointment.pk_appointment,
+      registration_date: appointment.registrationDate,
+      appointment_date: appointment.appointmentDate,
+      hour_appointment: appointment.hourAppointment,
+      is_cancelled: appointment.isCancelled,
+      fk_user: appointment.user
+        ? {
+            name: appointment.user.name,
+            lastname: appointment.user.lastname,
+            age: appointment.user.age,
+            dni: appointment.user.dni,
+            picture: appointment.user.picture,
+          }
+        : undefined, // Si no hay usuario, retorna undefined
+    };
   };
 
-  checkAppointmentConflict = async (
-    doctorId: number,
-    appointmentDate: Date,
-    startTime: Date,
-    endTime: Date
-  ): Promise<boolean> => {
-    const appointmentRepository = AppDataSource.getRepository(Appointment);
-    const conflict = await appointmentRepository.findOne({
-      where: {
-        doctor: { doctorId },
-        appointmentDate,
-        starTime: LessThanOrEqual(endTime),
-        endTime: MoreThanOrEqual(startTime),
-      },
-    });
-    return !!conflict;
+  // Crear citas
+  createAppointment = async (data: Appointment): Promise<Appointment> => {
+    try {
+      const isAvailable = await checkAvailable(data);
+      if (!isAvailable) {
+        throw new Error("APPOINTMENT_CONFLICT");
+      }
+
+      const newAppointment = this.repository.create({
+        user: { pk_user: data.user.pk_user },
+        appointmentDate: data.appointmentDate,
+        hourAppointment: data.hourAppointment,
+        isCancelled: false,
+      });
+
+      return await this.repository.save(newAppointment);
+    } catch (error) {
+      throw new Error("Error al Crear Citas");
+    }
   };
 }

@@ -3,25 +3,31 @@ import {
   PrimaryGeneratedColumn,
   Column,
   ManyToOne,
+  JoinColumn,
   CreateDateColumn,
-  UpdateDateColumn,
 } from "typeorm";
-import { Patient } from "./patients.model";
+import { User } from "./users.model";
+import { Appointment } from "./appointments.model";
 
 @Entity("histories")
 export class History {
   @PrimaryGeneratedColumn()
-  historyId: number;
+  pk_history: number;
 
-  @Column()
+  @Column({ type: "text" })
   description: string;
 
-  @CreateDateColumn()
-  createdAt: Date;
+  @Column({ type: "text" })
+  recipe: string;
 
-  @UpdateDateColumn()
-  updatedAt: Date;
+  @CreateDateColumn({ name: "date" })
+  registrationDate: Date;
 
-  @ManyToOne(() => Patient, (patient) => patient.histories)
-  patient: Patient;
+  @ManyToOne(() => User, (user) => user.histories)
+  @JoinColumn({ name: "fk_user" })
+  user: User;
+
+  @ManyToOne(() => Appointment, (appointment) => appointment.histories)
+  @JoinColumn({ name: "fk_appointment" })
+  appointment: Appointment;
 }

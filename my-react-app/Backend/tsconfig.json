@@ -27,10 +27,12 @@
     "paths": {
       "@config/*": ["config/*"],
       "@controllers/*": ["controllers/*"],
+      "@dtos/*": ["dtos/*"],
       "@middlewares/*": ["middlewares/*"],
       "@models/*": ["models/*"],
       "@routes/*": ["routes/*"],
-      "@services/*": ["services/*"]
+      "@services/*": ["services/*"],
+      "@utils/*": ["utils/*"]
     },
     "typeRoots": ["@types", "./node_modules/@types"]
   },
