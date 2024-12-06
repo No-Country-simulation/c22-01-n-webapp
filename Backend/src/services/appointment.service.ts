@@ -1,5 +1,5 @@
 import { AppDataSource } from "@config/database.config";
-import { AppointmentResponseDto } from "@dtos/appointmentResponseDto";
+import { ResponseDto } from "@dtos/responseDto";
 import { Appointment } from "@models/appointments.model";
 import { checkAvailable } from "@utils/checkAvailable";
 
@@ -7,8 +7,10 @@ export class AppointmentService {
   private readonly repository = AppDataSource.getRepository(Appointment);
 
   // Obtener citas
-  getAllAppointment = async (): Promise<AppointmentResponseDto[]> => {
-    const appointments = await this.repository.find({ relations: ["user"] });
+  getAllAppointment = async (): Promise<ResponseDto[]> => {
+    const appointments = await this.repository.find({
+      relations: ["user", "user.histories", "histories"],
+    });
     return appointments.map((appointment) => ({
       pk_appointment: appointment.pk_appointment,
       registration_date: appointment.registrationDate,
@@ -22,18 +24,22 @@ export class AppointmentService {
             age: appointment.user.age,
             dni: appointment.user.dni,
             picture: appointment.user.picture,
+            histories: appointment.user.histories.map((history) => ({
+              pk_history: history.pk_history,
+              description: history.description,
+              recipe: history.recipe,
+              registrationDate: history.registrationDate,
+            })),
           }
         : undefined, // Si no hay usuario, retorna undefined
     }));
   };
 
   // Obtener cita por ID
-  getAppointmentById = async (
-    id: number
-  ): Promise<AppointmentResponseDto | null> => {
+  getAppointmentById = async (id: number): Promise<ResponseDto | null> => {
     const appointment = await this.repository.findOne({
       where: { pk_appointment: id },
-      relations: ["user"],
+      relations: ["user", "user.histories", "histories"],
     });
     if (!appointment) {
       return null; // Devuelve null si no se encuentra
@@ -51,6 +57,12 @@ export class AppointmentService {
             age: appointment.user.age,
             dni: appointment.user.dni,
             picture: appointment.user.picture,
+            histories: appointment.user.histories.map((history) => ({
+              pk_history: history.pk_history,
+              description: history.description,
+              recipe: history.recipe,
+              registrationDate: history.registrationDate,
+            })),
           }
         : undefined, // Si no hay usuario, retorna undefined
     };
@@ -72,7 +84,7 @@ export class AppointmentService {
       });
 
       return await this.repository.save(newAppointment);
-    } catch (error) {
+    } catch (err) {
       throw new Error("Error al Crear Citas");
     }
   };

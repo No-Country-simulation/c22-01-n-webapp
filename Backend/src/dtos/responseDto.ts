@@ -1,4 +1,4 @@
-export class AppointmentResponseDto {
+export class ResponseDto {
   pk_appointment: number;
   registration_date: Date;
   appointment_date?: Date;
@@ -10,5 +10,11 @@ export class AppointmentResponseDto {
     age: number;
     dni: string;
     picture: string | null;
+    histories?: {
+      pk_history: number;
+      description: string;
+      recipe: string;
+      registrationDate: Date;
+    }[];
   };
 }

@@ -10,6 +10,7 @@ class AppointmentController {
     this.appointmentService = new AppointmentService();
   }
 
+  //Obtener todas las Citas
   getAllAppointments = async (
     _req: Request,
     res: Response
@@ -37,6 +38,8 @@ class AppointmentController {
     }
   };
 
+
+  // Obtener Cita por Id
   getAppointmentById = async (
     req: Request,
     res: Response

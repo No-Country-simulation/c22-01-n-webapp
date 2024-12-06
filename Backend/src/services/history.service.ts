@@ -5,16 +5,14 @@ export class HistoryService {
   private readonly repository = AppDataSource.getRepository(History);
 
   getAllHistories = async (): Promise<History[] | any> => {
-    try {
-      const history = await this.repository.findOne({
-        relations: ["user", "appointment"],
-        order: { registrationDate: "DESC" },
-      });
+    return await this.repository.find({ relations: ["user"] });
+  };
 
-      return history;
-    } catch {
-      throw new Error("Error al obtener la Historia Medica");
-    }
+  getHistoryById = async (id: number): Promise<History | any> => {
+    return await this.repository.findOne({
+      where: { pk_history: id },
+      relations: ["user"],
+    });
   };
 
   createHistory = async (data: History): Promise<History> => {
@@ -26,8 +24,8 @@ export class HistoryService {
       });
 
       return await this.repository.save(newHistory);
-    } catch {
-      throw new Error("Error al crear la Histora Medica");
+    } catch (err) {
+      throw new Error("Error al crear la Historia Medica");
     }
   };
 }
