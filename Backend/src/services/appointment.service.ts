@@ -1,7 +1,6 @@
 import { AppDataSource } from "@config/database.config";
 import { AppointmentResponseDto } from "@dtos/appointmentResponseDto";
 import { Appointment } from "@models/appointments.model";
-import { User } from "@models/users.model";
 import { checkAvailable } from "@utils/checkAvailable";
 
 export class AppointmentService {

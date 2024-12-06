@@ -22,7 +22,7 @@ class AppointmentController {
       if (!appointments || appointments.length === 0) {
         return handlerError(
           res,
-          "No se encuentran registrosa en la base de datos",
+          "No se encuentran registros en la base de datos",
           404
         );
       }
@@ -31,7 +31,7 @@ class AppointmentController {
       return res
         .status(200)
         .json({ message: "Lista de Citas", list: appointments });
-    } catch (error) {
+    } catch (err) {
       // Manejo de errores en caso de que algo falle en el servicio
       return handlerError(res, "Internal Server Error", 500);
     }
