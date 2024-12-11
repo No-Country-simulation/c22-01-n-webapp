@@ -4,21 +4,24 @@ import { Role } from "@models/roles.model";
 import { Specialty } from "@models/specialties.model";
 import { SpecialtyAndAppointment } from "@models/specialtiesandappointments.model";
 import { User } from "@models/users.model";
-import dotenv from "dotenv";
-import "reflect-metadata";
 import { DataSource } from "typeorm";
+import * as dotenv from "dotenv";
+import "reflect-metadata";
 
 dotenv.config();
 
 export const AppDataSource = new DataSource({
   type: "postgres",
-  host: process.env.DB_HOST,
+  host: process.env.DATABASE_HOST,
   port: 5432,
-  username: process.env.DB_USERNAME,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_NAME,
-  synchronize: false, // Solo para desarrollo, elimina en producción
-  logging: false,
+  username: process.env.DATABASE_USER,
+  password: process.env.DATABASE_PASSWORD,
+  database: process.env.DATABASE_NAME,
+  synchronize: false, // Esto creará las tablas si no existen en la base de datos
+  logging: true,
+  ssl: {
+    rejectUnauthorized: false,
+  },
   entities: [
     Appointment,
     History,
@@ -27,5 +30,4 @@ export const AppDataSource = new DataSource({
     SpecialtyAndAppointment,
     User,
   ],
-  //migrations: [__dirname + "/migrations/*.ts"],
 });
