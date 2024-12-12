@@ -47,27 +47,33 @@ const RegistrationForm = () => {
     setError("");
 
     try {
-      // Crear un objeto FormData para enviar los datos como 'multipart/form-data'
-      const formDataToSubmit = new FormData();
-      formDataToSubmit.append("firstName", formData.firstName);
-      formDataToSubmit.append("lastName", formData.lastName);
-      formDataToSubmit.append("address", formData.address);
-      formDataToSubmit.append("state", formData.state);
-      formDataToSubmit.append("dni", formData.dni);
-      formDataToSubmit.append("email", formData.email);
-      formDataToSubmit.append("phone", formData.phone);
-      formDataToSubmit.append("age", formData.age);
-      formDataToSubmit.append("profileImage", formData.profileImage); // Para la imagen de perfil
-      formDataToSubmit.append("role", formData.role);
-      formDataToSubmit.append("password", formData.password);
-
-      // Realizar la solicitud POST al backend con multipart/form-data
-      const response = await axios.post("http://localhost:4000/user/register", formDataToSubmit, {
-        headers: {
-          "Content-Type": "multipart/form-data", // Especificamos el tipo de contenido para archivos
+      // Convertir FormData a objeto JavaScript
+      const userData = {
+        user: {
+          name: formData.firstName,
+          lastname: formData.lastName,
+          age: parseInt(formData.age), // Asegurarse de que la edad sea un número
+          email: formData.email,
+          password: formData.password,
+          dni: formData.dni,
+          picture: formData.profileImage, // Suponiendo que profileImage es una URL
+          phone: formData.phone,
+          role:
+            formData.role === "paciente" ? 3 : 2 /* otro valor para otro rol */,
         },
-      });
-
+      };
+      console.log(userData);
+      // Realizar la solicitud POST al backend con JSON
+      const response = await axios.post(
+        "http://localhost:4000/user/register",
+        userData,
+        {
+          headers: {
+            "Content-Type": "application/json", // Importante para JSON
+          },
+        }
+      );
+      console.log(response);
       // Si la respuesta es exitosa
       if (response.status === 201) {
         setSuccess(true);
@@ -80,7 +86,9 @@ const RegistrationForm = () => {
       if (err.response && err.response.data) {
         setError(err.response.data.message || "Hubo un error en el registro.");
       } else {
-        setError("Hubo un error al registrar el usuario. Por favor, intente nuevamente.");
+        setError(
+          "Hubo un error al registrar el usuario. Por favor, intente nuevamente."
+        );
       }
       console.error("Error en el registro:", err);
     }
@@ -299,7 +307,9 @@ const RegistrationForm = () => {
                   </button>
 
                   {error && <div className="text-danger mt-2">{error}</div>}
-                  {success && <div className="text-success mt-2">Registro exitoso</div>}
+                  {success && (
+                    <div className="text-success mt-2">Registro exitoso</div>
+                  )}
                 </form>
               </div>
             </div>
