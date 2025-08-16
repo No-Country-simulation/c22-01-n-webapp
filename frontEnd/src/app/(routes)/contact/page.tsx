@@ -5,7 +5,7 @@ const ContactPage = () => {
 	return (
 		<PageContainer>
 			<div className="py-4 px-4">
-				{/* Título */}
+				{/* Title */}
 				<div className="flex flex-col items-center justify-center leading-tight mb-6">
 					<h2 className="text-3xl font-bold mb-2 text-center text-cyan-600">
 						Contacto
@@ -17,7 +17,7 @@ const ContactPage = () => {
 					</p>
 				</div>
 
-				{/* Lista de contacto */}
+				{/* List */}
 				<div className="border-4 border-gray-100 rounded-xl shadow-md p-6 max-w-2xl mx-auto">
 					<ul className="flex flex-col gap-5">
 						{contactData.map((data) => (
@@ -25,10 +25,10 @@ const ContactPage = () => {
 								key={data.id}
 								className="flex items-start gap-4 text-gray-700"
 							>
-								{/* Icono */}
+								{/* Icon */}
 								<data.icon className="w-8 h-8 text-teal-500 flex-shrink-0" />
 
-								{/* Información */}
+								{/* Info */}
 								<div>
 									<h3 className="text-lg font-semibold text-cyan-600 mb-1">
 										{data.fieldName}
@@ -40,7 +40,7 @@ const ContactPage = () => {
 					</ul>
 				</div>
 
-				{/* Mensaje final */}
+				{/* Last message */}
 				<p className="text-lg text-gray-600 mt-6 text-center max-w-3xl mx-auto">
 					Nuestro equipo de soporte está disponible para ayudarte con cualquier
 					incidencia técnica, resolver problemas con el registro, el acceso a tu

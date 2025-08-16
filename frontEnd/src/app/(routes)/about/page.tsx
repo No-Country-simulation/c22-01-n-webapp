@@ -4,14 +4,14 @@ const AboutPage = () => {
 	return (
 		<PageContainer>
 			<div className="py-4 px-4">
-				{/* Título */}
+				{/* Title */}
 				<div className="flex flex-col items-center justify-center leading-tight mb-6">
 					<h2 className="text-3xl font-bold mb-2 text-center text-cyan-600">
 						Acerca de MediConnect
 					</h2>
 				</div>
 
-				{/* Texto principal */}
+				{/* Text */}
 				<div className="border-4 border-gray-100 rounded-xl shadow-md p-6 max-w-4xl mx-auto">
 					<p className="text-lg text-gray-600 leading-relaxed text-justify">
 						Somos una plataforma de salud digital creada para conectar a

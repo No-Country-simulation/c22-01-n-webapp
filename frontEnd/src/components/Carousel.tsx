@@ -22,7 +22,7 @@ const Carousel = () => {
 
 	return (
 		<div className="relative w-full max-w-[90%] mx-auto">
-			{/* Imagen */}
+			{/* Image */}
 			<div className="overflow-hidden rounded-md shadow-lg">
 				<img
 					src={images[current]}
@@ -31,7 +31,7 @@ const Carousel = () => {
 				/>
 			</div>
 
-			{/* Botón anterior */}
+			{/* Back Btn */}
 			<button
 				onClick={prevSlide}
 				className="absolute top-1/2 left-4 -translate-y-1/2 bg-black/30 p-2 rounded-full text-white hover:bg-black/50 transition"
@@ -39,7 +39,7 @@ const Carousel = () => {
 				<ChevronLeftIcon className="w-6 h-6" />
 			</button>
 
-			{/* Botón siguiente */}
+			{/* Next Btn */}
 			<button
 				onClick={nextSlide}
 				className="absolute top-1/2 right-4 -translate-y-1/2 bg-black/30 p-2 rounded-full text-white hover:bg-black/50 transition"
@@ -47,7 +47,7 @@ const Carousel = () => {
 				<ChevronRightIcon className="w-6 h-6" />
 			</button>
 
-			{/* Indicadores */}
+			{/* Pointer */}
 			<div className="flex justify-center gap-2 mt-5">
 				{images.map((imageUrl, index) => (
 					<button

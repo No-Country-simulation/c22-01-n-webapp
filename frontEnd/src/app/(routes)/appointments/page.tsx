@@ -26,7 +26,7 @@ const AppointmentPage = () => {
 		<PageContainer>
 			<div className="flex justify-center items-center mt-2 lg:mt-5 mb-1">
 				<div className="border-4 border-gray-100 rounded-2xl p-5 shadow-md w-full max-w-md">
-					{/* Imagen */}
+					{/* Image */}
 					<div className="rounded-lg overflow-hidden mb-6">
 						<img
 							src="https://www.noticias-medicas.com/wp-content/uploads/2018/09/avances-medicos-tecnologicos.jpg"
@@ -77,7 +77,7 @@ const AppointmentPage = () => {
 							</div>
 						</div>
 
-						{/* Tipo de cita */}
+						{/* Type */}
 						<div className="block space-y-2">
 							<label
 								htmlFor="tipoCita"
@@ -100,7 +100,7 @@ const AppointmentPage = () => {
 							</select>
 						</div>
 
-						{/* Botones */}
+						{/* Buttons */}
 						<div className="flex justify-center gap-4 lg:gap-8 mt-6">
 							<button
 								type="submit"

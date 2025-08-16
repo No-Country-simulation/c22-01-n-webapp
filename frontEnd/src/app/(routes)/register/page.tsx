@@ -17,7 +17,7 @@ const RegisterPage = () => {
 		phone: "",
 		age: "",
 		profileImage: null,
-		role: "paciente", // Valor por defecto
+		role: "paciente",
 		password: "",
 		confirmPassword: "",
 	});
@@ -37,7 +37,7 @@ const RegisterPage = () => {
 	const handleSubmit = async (e: any) => {
 		e.preventDefault();
 
-		// Validación de contraseñas
+		// Pass Validator
 		if (formData.password !== formData.confirmPassword) {
 			setError("Las contraseñas no coinciden.");
 			setSuccess(false);
@@ -48,39 +48,36 @@ const RegisterPage = () => {
 		setError("");
 
 		try {
-			// Convertir FormData a objeto JavaScript
+			// FormData to JavaScript object
 			const userData = {
 				user: {
 					name: formData.firstName,
 					lastname: formData.lastName,
-					age: parseInt(formData.age), // Asegurarse de que la edad sea un número
+					age: parseInt(formData.age),
 					email: formData.email,
 					password: formData.password,
 					dni: formData.dni,
-					picture: formData.profileImage, // Suponiendo que profileImage es una URL
+					picture: formData.profileImage,
 					phone: formData.phone,
-					role:
-						formData.role === "paciente" ? 3 : 2 /* otro valor para otro rol */,
+					role: formData.role === "paciente" ? 3 : 2,
 				},
 			};
 			console.log(userData);
-			// Realizar la solicitud POST al backend con JSON
 			const response = await axios.post(
 				"http://localhost:4000/user/register",
 				userData,
 				{
 					headers: {
-						"Content-Type": "application/json", // Importante para JSON
+						"Content-Type": "application/json",
 					},
 				}
 			);
 			console.log(response);
-			// Si la respuesta es exitosa
 			if (response.status === 201) {
 				setSuccess(true);
 				setError("");
 				alert("Usuario registrado con éxito.");
-				router.push("/login"); // Redirigir a la página de login
+				router.push("/login");
 			}
 		} catch (err: any) {
 			setSuccess(false);
@@ -99,7 +96,7 @@ const RegisterPage = () => {
 		<PageContainer>
 			<div className="flex justify-center items-center mt-2 lg:mt-5 mb-1">
 				<div className="border-4 border-gray-100 rounded-2xl p-6 shadow-md w-full max-w-md">
-					{/* Imagen */}
+					{/* Image */}
 					<div className="rounded-lg overflow-hidden mb-6">
 						<img
 							src="https://www.noticias-medicas.com/wp-content/uploads/2018/09/avances-medicos-tecnologicos.jpg"
@@ -108,7 +105,7 @@ const RegisterPage = () => {
 						/>
 					</div>
 
-					{/* Título */}
+					{/* Title */}
 					<h3 className="text-center mb-6 text-2xl font-bold text-gray-800 capitalize">
 						Regístrate
 					</h3>
@@ -295,7 +292,7 @@ const RegisterPage = () => {
 							</div>
 						</div>
 
-						{/* Botones */}
+						{/* Buttons */}
 						<div className="flex justify-center gap-4 lg:gap-8 mt-6">
 							<button
 								type="submit"
@@ -314,7 +311,7 @@ const RegisterPage = () => {
 							</button>
 						</div>
 
-						{/* Mensajes */}
+						{/* Message */}
 						{error && <div className="text-red-500 mt-2">{error}</div>}
 						{success && (
 							<div className="text-green-500 mt-2">Registro exitoso</div>

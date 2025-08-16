@@ -8,7 +8,7 @@ const LoginPage = () => {
 	const [password, setPassword] = useState("");
 
 	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-		e.preventDefault(); // Prevenir el comportamiento por defecto del formulario
+		e.preventDefault();
 
 		try {
 			const response = await axios.post("http://localhost:4000/user/login", {
@@ -17,10 +17,8 @@ const LoginPage = () => {
 			});
 
 			if (response.status === 200) {
-				// Inicio de sesión exitoso! (redirigir o mostrar mensaje)
 				console.log("Inicio de sesión exitoso!");
 			} else {
-				// Manejar error de inicio de sesión
 				console.error("Error al iniciar sesión");
 			}
 		} catch (error) {
@@ -31,7 +29,7 @@ const LoginPage = () => {
 		<PageContainer>
 			<div className="flex justify-center items-center mt-2 lg:mt-5 mb-1">
 				<div className="border-4 border-gray-100 rounded-2xl p-6 shadow-md w-full max-w-md">
-					{/* Imagen */}
+					{/* Image */}
 					<div className="rounded-lg overflow-hidden mb-6">
 						<img
 							src="https://www.noticias-medicas.com/wp-content/uploads/2018/09/avances-medicos-tecnologicos.jpg"
@@ -40,14 +38,14 @@ const LoginPage = () => {
 						/>
 					</div>
 
-					{/* Título */}
+					{/* Title */}
 					<h3 className="text-center mb-6 text-2xl font-bold text-gray-800 capitalize">
 						Iniciar sesión
 					</h3>
 
-					{/* Formulario */}
+					{/* Form */}
 					<form onSubmit={handleSubmit} className="space-y-4 w-[85%] mx-auto">
-						{/* Correo */}
+						{/* Email */}
 						<div>
 							<label
 								htmlFor="email"
@@ -65,7 +63,7 @@ const LoginPage = () => {
 							/>
 						</div>
 
-						{/* Contraseña */}
+						{/* Password */}
 						<div>
 							<label
 								htmlFor="password"
@@ -83,7 +81,7 @@ const LoginPage = () => {
 							/>
 						</div>
 
-						{/* Botones */}
+						{/* Buttons */}
 						<div className="flex justify-center gap-4 lg:gap-8 mt-6">
 							<button
 								type="submit"

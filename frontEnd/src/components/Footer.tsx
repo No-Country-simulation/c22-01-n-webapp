@@ -5,7 +5,7 @@ const Footer = () => {
 	return (
 		<footer className="bg-teal-500 text-white py-4 w-full">
 			<div className="container mx-auto flex flex-col md:flex-row items-center justify-between gap-4 px-4">
-				{/* Logo y derechos */}
+				{/* Logo */}
 				<div className="text-center md:text-left">
 					<h2 className="text-lg font-bold">MediConnect</h2>
 					<p className="text-md">

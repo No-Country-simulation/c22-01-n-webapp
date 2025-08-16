@@ -14,10 +14,10 @@ const HeroSection = (props: HeroSectionProps) => {
 						'url("https://i.pinimg.com/736x/6e/37/5a/6e375ad883c69fbb6f5845e99ca25623.jpg")',
 				}}
 			>
-				{/* Overlay (opcional, para mejorar legibilidad) */}
+				{/* Overlay */}
 				<div className="absolute inset-0 bg-black/40"></div>
 
-				{/* Contenido */}
+				{/* Content */}
 				<div className="relative text-center text-white px-4">
 					<h1 className="text-3xl md:text-4xl font-bold mb-2">
 						Siempre a tu lado, las 24 horas
