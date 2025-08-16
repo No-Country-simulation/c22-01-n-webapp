@@ -3,15 +3,6 @@
 :root {
 	--background: #fafafa;
 	--foreground: #171717;
-	--primary: #03a9f4;
-	--secondary: #74c7bf;
-	--accent: #03a9f4;
-	--accent-hover: #028ac2;
-	--success: #66bb6a;
-	--success-hover: #4caf50;
-	--error: #ef9a9a;
-	--error-hover: #e57373;
-	--muted: #bdbdbd;
 }
 
 @theme inline {

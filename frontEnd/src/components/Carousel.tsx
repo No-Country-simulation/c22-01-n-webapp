@@ -1,72 +1,64 @@
+"use client";
+
+import { useState } from "react";
+import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
+
+const images = [
+	"https://img.freepik.com/fotos-premium/grupo-medicos-modernos-exitosos-seguros-estan-posando-mirando-camara-pasillo-hospital_283617-1203.jpg?semt=ais_hybrid",
+	"https://www.shutterstock.com/shutterstock/videos/3432671919/thumb/1.jpg?ip=x480",
+	"https://img.freepik.com/foto-gratis/cientificos-tiro-medio-posando-juntos_23-2148969982.jpg",
+];
+
 const Carousel = () => {
+	const [current, setCurrent] = useState(0);
+
+	const prevSlide = () => {
+		setCurrent(current === 0 ? images.length - 1 : current - 1);
+	};
+
+	const nextSlide = () => {
+		setCurrent(current === images.length - 1 ? 0 : current + 1);
+	};
+
 	return (
-		<div
-			id="carouselExampleFade"
-			className="carousel slide carousel-fade"
-			data-bs-ride="carousel"
-		>
-			<div className="carousel-inner">
-				{/* Primer item activo */}
-				<div className="carousel-item active">
-					<img
-						src="https://img.freepik.com/fotos-premium/grupo-medicos-modernos-exitosos-seguros-estan-posando-mirando-camara-pasillo-hospital_283617-1203.jpg?semt=ais_hybrid"
-						className="d-block w-100"
-						alt="..."
-						style={{
-							objectFit: "cover",
-							height: "300px",
-						}}
-					/>
-				</div>
-
-				{/* Segundo item */}
-				<div className="carousel-item">
-					<img
-						src="https://www.shutterstock.com/shutterstock/videos/3432671919/thumb/1.jpg?ip=x480"
-						className="d-block w-100"
-						alt="..."
-						style={{
-							objectFit: "cover",
-							height: "300px",
-						}}
-					/>
-				</div>
-
-				{/* Tercer item */}
-				<div className="carousel-item">
-					<img
-						src="https://img.freepik.com/foto-gratis/cientificos-tiro-medio-posando-juntos_23-2148969982.jpg"
-						className="d-block w-100"
-						alt="..."
-						style={{
-							objectFit: "cover",
-							height: "300px",
-						}}
-					/>
-				</div>
+		<div className="relative w-full max-w-[90%] mx-auto">
+			{/* Imagen */}
+			<div className="overflow-hidden rounded-md shadow-lg">
+				<img
+					src={images[current]}
+					alt={`slide-${current}`}
+					className="w-full h-[350px] object-cover transition-all duration-700"
+				/>
 			</div>
 
 			{/* Botón anterior */}
 			<button
-				className="carousel-control-prev"
-				type="button"
-				data-bs-target="#carouselExampleFade"
-				data-bs-slide="prev"
+				onClick={prevSlide}
+				className="absolute top-1/2 left-4 -translate-y-1/2 bg-black/30 p-2 rounded-full text-white hover:bg-black/50 transition"
 			>
-				<span className="carousel-control-prev-icon" aria-hidden="true"></span>
-				<span className="visually-hidden">Previous</span>
+				<ChevronLeftIcon className="w-6 h-6" />
 			</button>
 
 			{/* Botón siguiente */}
 			<button
-				className="carousel-control-next"
-				type="button"
-				data-bs-target="#carouselExampleFade"
-				data-bs-slide="next"
+				onClick={nextSlide}
+				className="absolute top-1/2 right-4 -translate-y-1/2 bg-black/30 p-2 rounded-full text-white hover:bg-black/50 transition"
 			>
-				<span className="carousel-control-next-icon" aria-hidden="true"></span>
-				<span className="visually-hidden">Next</span>
+				<ChevronRightIcon className="w-6 h-6" />
 			</button>
+
+			{/* Indicadores */}
+			<div className="flex justify-center gap-2 mt-5">
+				{images.map((imageUrl, index) => (
+					<button
+						key={imageUrl}
+						onClick={() => setCurrent(index)}
+						className={`w-3 h-3 rounded-full transition ${
+							current === index ? "bg-cyan-600" : "bg-gray-300"
+						}`}
+					></button>
+				))}
+			</div>
 		</div>
 	);
 };

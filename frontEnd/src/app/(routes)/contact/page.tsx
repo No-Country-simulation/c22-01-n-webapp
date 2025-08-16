@@ -7,7 +7,7 @@ const ContactPage = () => {
 			<div className="py-4 px-4">
 				{/* Título */}
 				<div className="flex flex-col items-center justify-center leading-tight mb-6">
-					<h2 className="text-3xl font-bold mb-2 text-center text-[#03a9f4]">
+					<h2 className="text-3xl font-bold mb-2 text-center text-cyan-600">
 						Contacto
 					</h2>
 					<p className="text-lg text-gray-600 text-center max-w-3xl">
@@ -26,11 +26,11 @@ const ContactPage = () => {
 								className="flex items-start gap-4 text-gray-700"
 							>
 								{/* Icono */}
-								<data.icon className="w-8 h-8 text-[#74c7bf] flex-shrink-0" />
+								<data.icon className="w-8 h-8 text-teal-500 flex-shrink-0" />
 
 								{/* Información */}
 								<div>
-									<h3 className="text-lg font-semibold text-[#03a9f4] mb-1">
+									<h3 className="text-lg font-semibold text-cyan-600 mb-1">
 										{data.fieldName}
 									</h3>
 									<p className="text-gray-600">{data.fieldValue}</p>

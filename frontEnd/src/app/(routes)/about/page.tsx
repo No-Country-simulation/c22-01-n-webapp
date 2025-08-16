@@ -6,7 +6,7 @@ const AboutPage = () => {
 			<div className="py-4 px-4">
 				{/* Título */}
 				<div className="flex flex-col items-center justify-center leading-tight mb-6">
-					<h2 className="text-3xl font-bold mb-2 text-center text-[#03a9f4]">
+					<h2 className="text-3xl font-bold mb-2 text-center text-cyan-600">
 						Acerca de MediConnect
 					</h2>
 				</div>

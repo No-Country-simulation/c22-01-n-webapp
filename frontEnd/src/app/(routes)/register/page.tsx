@@ -129,7 +129,7 @@ const RegisterPage = () => {
 									name="firstName"
 									value={formData.firstName}
 									onChange={handleChange}
-									className="mt-1 w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-[#79c3ff]"
+									className="mt-1 w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-cyan-500"
 								/>
 							</div>
 							<div className="flex-1">
@@ -145,7 +145,7 @@ const RegisterPage = () => {
 									name="lastName"
 									value={formData.lastName}
 									onChange={handleChange}
-									className="mt-1 w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-[#79c3ff]"
+									className="mt-1 w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-cyan-500"
 								/>
 							</div>
 						</div>
@@ -165,7 +165,7 @@ const RegisterPage = () => {
 									name="dni"
 									value={formData.dni}
 									onChange={handleChange}
-									className="mt-1 w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-[#79c3ff]"
+									className="mt-1 w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-cyan-500"
 								/>
 							</div>
 							<div className="flex-1">
@@ -181,7 +181,7 @@ const RegisterPage = () => {
 									name="phone"
 									value={formData.phone}
 									onChange={handleChange}
-									className="mt-1 w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-[#79c3ff]"
+									className="mt-1 w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-cyan-500"
 								/>
 							</div>
 						</div>
@@ -200,7 +200,7 @@ const RegisterPage = () => {
 								name="email"
 								value={formData.email}
 								onChange={handleChange}
-								className="mt-1 w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-[#79c3ff]"
+								className="mt-1 w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-cyan-500"
 							/>
 						</div>
 
@@ -219,7 +219,7 @@ const RegisterPage = () => {
 									name="address"
 									value={formData.address}
 									onChange={handleChange}
-									className="mt-1 w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-[#79c3ff]"
+									className="mt-1 w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-cyan-500"
 								/>
 							</div>
 							<div className="flex-1">
@@ -234,7 +234,7 @@ const RegisterPage = () => {
 									name="state"
 									value={formData.state}
 									onChange={handleChange}
-									className="mt-1 w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-[#79c3ff]"
+									className="mt-1 w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-cyan-500"
 								>
 									<option value="">Seleccionar</option>
 									<option value="Buenos Aires">Buenos Aires</option>
@@ -255,7 +255,7 @@ const RegisterPage = () => {
 								id="formProfileImage"
 								name="profileImage"
 								onChange={handleChange}
-								className="mt-1 w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-[#79c3ff]"
+								className="mt-1 w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-cyan-500"
 							/>
 						</div>
 
@@ -274,7 +274,7 @@ const RegisterPage = () => {
 									name="password"
 									value={formData.password}
 									onChange={handleChange}
-									className="mt-1 w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-[#79c3ff]"
+									className="mt-1 w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-cyan-500"
 								/>
 							</div>
 							<div className="flex-1">
@@ -290,7 +290,7 @@ const RegisterPage = () => {
 									name="confirmPassword"
 									value={formData.confirmPassword}
 									onChange={handleChange}
-									className="mt-1 w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-[#79c3ff]"
+									className="mt-1 w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-cyan-500"
 								/>
 							</div>
 						</div>
@@ -299,14 +299,16 @@ const RegisterPage = () => {
 						<div className="flex justify-center gap-4 lg:gap-8 mt-6">
 							<button
 								type="submit"
-								className="bg-[#57a05b] lg:bg-[#66bb6a] hover:bg-[#57a05b] text-white font-bold py-2 px-4 rounded-lg transition duration-300 w-full sm:w-auto mt-3"
+								className="bg-green-600 lg:bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg transition duration-300 w-full sm:w-auto mt-3"
 							>
 								Registrarse
 							</button>
+
 							<button
 								type="button"
 								onClick={() => window.history.back()}
-								className="bg-[#e57373] lg:bg-[#ef9a9a] hover:bg-[#e57373] text-white font-bold py-2 px-4 rounded-lg transition duration-300 w-full sm:w-auto mt-3"
+								className="bg-red-400 lg:bg-red-300 hover:bg-red-500 
+                text-white font-bold py-2 px-4 rounded-lg transition duration-300 w-full sm:w-auto mt-3"
 							>
 								Regresar
 							</button>

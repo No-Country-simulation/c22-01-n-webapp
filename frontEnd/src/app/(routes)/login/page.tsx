@@ -61,7 +61,7 @@ const LoginPage = () => {
 								value={email}
 								onChange={(e) => setEmail(e.target.value)}
 								required
-								className="mt-1 w-full border border-gray-300 rounded-lg p-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#79c3ff]"
+								className="mt-1 w-full border border-gray-300 rounded-lg p-2 text-sm focus:outline-none focus:ring-2 focus:ring-cyan-500"
 							/>
 						</div>
 
@@ -79,7 +79,7 @@ const LoginPage = () => {
 								value={password}
 								onChange={(e) => setPassword(e.target.value)}
 								required
-								className="mt-1 w-full border border-gray-300 rounded-lg p-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#79c3ff]"
+								className="mt-1 w-full border border-gray-300 rounded-lg p-2 text-sm focus:outline-none focus:ring-2 focus:ring-cyan-500"
 							/>
 						</div>
 
@@ -87,14 +87,14 @@ const LoginPage = () => {
 						<div className="flex justify-center gap-4 lg:gap-8 mt-6">
 							<button
 								type="submit"
-								className="bg-[#57a05b] lg:bg-[#66bb6a] hover:bg-[#57a05b]  text-white font-bold py-2 px-4 rounded-lg transition duration-300 w-full sm:w-auto mt-3"
+								className="bg-green-600 lg:bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg transition duration-300 w-full sm:w-auto mt-3"
 							>
 								Ingresar
 							</button>
 							<button
 								type="button"
 								onClick={() => window.history.back()}
-								className="bg-[#e57373] lg:bg-[#ef9a9a] hover:bg-[#e57373] text-white font-bold py-2 px-4 rounded-lg transition duration-300 w-full sm:w-auto mt-3"
+								className="bg-red-400 lg:bg-red-300 hover:bg-red-500 text-white font-bold py-2 px-4 rounded-lg transition duration-300 w-full sm:w-auto mt-3"
 							>
 								Regresar
 							</button>
