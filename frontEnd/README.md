@@ -1,59 +1,70 @@
-# **MediConnect**
+# Getting Started with Create React App
 
-#### Funcionalidades principales:
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-1. **Registro de usuarios**:
+## Available Scripts
 
-   - Roles: Paciente, Doctor, Administrador.
-   - Datos básicos: nombre, apellido, email, telefono, edad, estado contraseña, foto, especialidad (para doctores).
+In the project directory, you can run:
 
-2. **Iniciar Sesión**:
+### `npm start`
 
-   - Correo y Contraseña
+Runs the app in the development mode.\
+Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-3. **Agendamiento de citas**:
+The page will reload when you make changes.\
+You may also see any lint errors in the console.
 
-   - Paciente selecciona fecha y doctor disponible.
-   - Sistema valida disponibilidad.
+### `npm test`
 
-4. **Gestión de disponibilidad**:
+Launches the test runner in the interactive watch mode.\
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-   - Doctores configuran horarios.
+### `npm run build`
 
-5. **Vista de citas**:
+Builds the app for production to the `build` folder.\
+It correctly bundles React in production mode and optimizes the build for the best performance.
 
-   - Pacientes: citas agendadas.
-   - Doctores: lista de pacientes programados.
+The build is minified and the filenames include the hashes.\
+Your app is ready to be deployed!
 
-6. **Historial de Citas**:
-   - Doctores pueden ver el historial anterior del paciente
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
----
+### `npm run eject`
 
-#### Arquitectura:
+**Note: this is a one-way operation. Once you `eject`, you can't go back!**
 
-- **Frontend**: React/Next.js
-- **Backend**: Node.js (Typescript)
-- **Base de datos**: PostgreSQL
+If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
----
+Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
 
-#### Pasos básicos:
+You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
-1. **Base de datos**:
-   - Tablas: usuarios (roles), Citas, Disponibilidad.
-2. **API**:
-   - Endpoints: registro, login, agendar cita, listar citas.
+## Learn More
 
-### Diagrama Base de datos
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-![Diagrama MediConnect](https://res.cloudinary.com/ddo3iuibt/image/upload/v1733500894/lrabdpno9csq2szk528z.png)
+To learn React, check out the [React documentation](https://reactjs.org/).
 
-### **FrontEnd**
+### Code Splitting
 
-**Juan Carlos Dias**
+This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
 
-### BackEnd
+### Analyzing the Bundle Size
 
-**Jacinto Jose Gutierrez Cantillo**  
-**Juan Daniel Pacheco Perez**
+This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+
+### Making a Progressive Web App
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+
+### Advanced Configuration
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+
+### Deployment
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+
+### `npm run build` fails to minify
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)

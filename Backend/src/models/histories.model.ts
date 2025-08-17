@@ -1,53 +1,33 @@
 import {
-	Entity,
-	PrimaryGeneratedColumn,
-	Column,
-	ManyToOne,
-	JoinColumn,
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToOne,
+  JoinColumn,
+  CreateDateColumn,
 } from "typeorm";
 import { User } from "./users.model";
 import { Appointment } from "./appointments.model";
 
 @Entity("histories")
 export class History {
-	@PrimaryGeneratedColumn()
-	id_history: number;
+  @PrimaryGeneratedColumn()
+  pk_history: number;
 
-	@ManyToOne(() => User, (user) => user.patientHistories, { nullable: false })
-	@JoinColumn({
-		name: "fk_patient",
-	})
-	patient: User;
+  @Column({ type: "text" })
+  description: string;
 
-	@ManyToOne(() => User, (user) => user.doctorHistories, { nullable: false })
-	@JoinColumn({
-		name: "fk_doctor",
-	})
-	doctor: User;
+  @Column({ type: "text" })
+  recipe: string;
 
-	@ManyToOne(() => Appointment, (appointment) => appointment.histories, {
-		nullable: false,
-	})
-	@JoinColumn({
-		name: "fk_appointment",
-	})
-	appointment: Appointment;
+  @CreateDateColumn({ name: "date" })
+  registrationDate: Date;
 
-	@Column({
-		type: "text",
-		nullable: false,
-	})
-	description: string;
+  @ManyToOne(() => User, (user) => user.histories)
+  @JoinColumn({ name: "fk_user" })
+  user: User;
 
-	@Column({
-		type: "text",
-		nullable: false,
-	})
-	prescription: string;
-
-	@Column({
-		type: "timestamp",
-		default: () => "CURRENT_TIMESTAMP",
-	})
-	created_at: Date;
+  @ManyToOne(() => Appointment, (appointment) => appointment.histories)
+  @JoinColumn({ name: "fk_appointment" })
+  appointment: Appointment;
 }
