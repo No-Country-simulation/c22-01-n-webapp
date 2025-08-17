@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
+import { HiChevronDoubleLeft, HiChevronDoubleRight } from "react-icons/hi";
 
 const images = [
 	"https://img.freepik.com/fotos-premium/grupo-medicos-modernos-exitosos-seguros-estan-posando-mirando-camara-pasillo-hospital_283617-1203.jpg?semt=ais_hybrid",
@@ -36,7 +36,7 @@ const Carousel = () => {
 				onClick={prevSlide}
 				className="absolute top-1/2 left-4 -translate-y-1/2 bg-black/30 p-2 rounded-full text-white hover:bg-black/50 transition"
 			>
-				<ChevronLeftIcon className="w-6 h-6" />
+				<HiChevronDoubleLeft className="w-6 h-6" />
 			</button>
 
 			{/* Next Btn */}
@@ -44,10 +44,10 @@ const Carousel = () => {
 				onClick={nextSlide}
 				className="absolute top-1/2 right-4 -translate-y-1/2 bg-black/30 p-2 rounded-full text-white hover:bg-black/50 transition"
 			>
-				<ChevronRightIcon className="w-6 h-6" />
+				<HiChevronDoubleRight className="w-6 h-6" />
 			</button>
 
-			{/* Pointer */}
+			{/* Point */}
 			<div className="flex justify-center gap-2 mt-5">
 				{images.map((imageUrl, index) => (
 					<button

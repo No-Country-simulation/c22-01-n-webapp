@@ -1,5 +1,5 @@
 "use client";
-import PageContainer from "@/components/PageContainer";
+import PageContainer from "@/components/common/PageContainer";
 import { useState } from "react";
 
 const AppointmentPage = () => {

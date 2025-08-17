@@ -1,5 +1,5 @@
 "use client";
-import PageContainer from "@/components/PageContainer";
+import PageContainer from "@/components/common/PageContainer";
 import axios from "axios";
 import { useState } from "react";
 

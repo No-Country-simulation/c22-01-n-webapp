@@ -1,8 +1,8 @@
-import Carousel from "@/components/Carousel";
-import DoctorsCard from "@/components/DoctorsCard";
-import HeroSection from "@/components/HeroSection";
-import Introduction from "@/components/Introduction";
-import PageContainer from "@/components/PageContainer";
+import Carousel from "@/components/common/Carousel";
+import DoctorsCard from "@/components/common/DoctorsCard";
+import HeroSection from "@/components/common/HeroSection";
+import Introduction from "@/components/common/Introduction";
+import PageContainer from "@/components/common/PageContainer";
 
 export default function Home() {
 	return (

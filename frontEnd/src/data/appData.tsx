@@ -1,9 +1,9 @@
+import { HiMail } from "react-icons/hi";
 import {
-	ChatBubbleLeftIcon,
-	ClockIcon,
-	EnvelopeIcon,
-	PhoneIcon,
-} from "@heroicons/react/24/solid";
+	HiChatBubbleBottomCenterText,
+	HiClock,
+	HiPhone,
+} from "react-icons/hi2";
 
 export const navigationLinks = [
 	{ id: 1, title: "Inicio", href: "/" },
@@ -142,24 +142,24 @@ export const contactData = [
 		id: 1,
 		fieldName: "Correo electrónico de soporte:",
 		fieldValue: "soporte@tuwebapp.com",
-		icon: EnvelopeIcon,
+		icon: HiMail,
 	},
 	{
 		id: 2,
 		fieldName: "Teléfono de atención:",
 		fieldValue: "+54 11 5555 5555",
-		icon: PhoneIcon,
+		icon: HiPhone,
 	},
 	{
 		id: 3,
 		fieldName: "Formulario de contacto:",
 		fieldValue: "Disponible en la sección de ayuda dentro de tu cuenta.",
-		icon: ClockIcon,
+		icon: HiClock,
 	},
 	{
 		id: 4,
 		fieldName: "Horario de atención:",
 		fieldValue: "Lunes a viernes de 8:00 a 18:00 hs",
-		icon: ChatBubbleLeftIcon,
+		icon: HiChatBubbleBottomCenterText,
 	},
 ];
