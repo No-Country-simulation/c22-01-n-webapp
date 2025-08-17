@@ -10,61 +10,159 @@ DROP TABLE IF EXISTS SPECIALTIES_AND_APPOINTMENTS CASCADE;
 
 DROP TABLE IF EXISTS HISTORIES CASCADE;
 
-CREATE TABLE IF NOT EXISTS ROLES (
-	PK_ROL SERIAL PRIMARY KEY NOT NULL,
-	ROL VARCHAR(50) NOT NULL
+-- ==============================
+-- ROLES
+-- ==============================
+CREATE TABLE IF NOT EXISTS roles (
+    id_role SERIAL PRIMARY KEY,
+    role_name VARCHAR(50) NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS USERS (
-	PK_USER SERIAL PRIMARY KEY NOT NULL,
-	NAME VARCHAR(25) NOT NULL,
-	LASTNAME VARCHAR(25) NOT NULL,
-	AGE INTEGER NOT NULL,
-	EMAIL VARCHAR(255) UNIQUE NOT NULL,
-	PASSWORD VARCHAR(255) NOT NULL,
-	DNI VARCHAR(100) UNIQUE NOT NULL,
-	PICTURE TEXT,
-	PHONE VARCHAR(20) UNIQUE NOT NULL,
-	FK_ROL BIGINT REFERENCES ROLES (PK_ROL) NOT NULL,
-	SPECIALTY VARCHAR(25) CONSTRAINT IS_DOCTOR CHECK (
-		FK_ROL = 2
-		OR SPECIALTY IS NULL
-	)
+-- ==============================
+-- USERS
+-- ==============================
+CREATE TABLE IF NOT EXISTS users (
+    id_user SERIAL PRIMARY KEY,
+    first_name VARCHAR(50) NOT NULL,
+    last_name VARCHAR(50) NOT NULL,
+    email VARCHAR(255) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    document_type VARCHAR(5) NOT NULL,
+    document_number VARCHAR(30) UNIQUE NOT NULL,
+    phone VARCHAR(20) UNIQUE NOT NULL,
+    picture TEXT,
+    license_number VARCHAR(50),
+    fk_role INT REFERENCES roles(id_role) NOT NULL,
+    -- validación: si es DOCTOR (role=2), license_number obligatorio
+    CONSTRAINT chk_doctor_license CHECK (
+        (fk_role = 2 AND license_number IS NOT NULL)
+        OR (fk_role <> 2 AND license_number IS NULL)
+    )
 );
 
-CREATE TABLE IF NOT EXISTS SPECIALTIES (
-	PK_SPECIALTY SERIAL PRIMARY KEY NOT NULL,
-	SPECIALTY VARCHAR(50) NOT NULL
+-- ==============================
+-- SPECIALTIES
+-- ==============================
+CREATE TABLE IF NOT EXISTS specialties (
+    id_specialty SERIAL PRIMARY KEY,
+    specialty_name VARCHAR(100) NOT NULL UNIQUE
 );
 
-CREATE TABLE IF NOT EXISTS APPOINTMENTS (
-	PK_APPOINTMENT SERIAL PRIMARY KEY,
-	FK_USER BIGINT REFERENCES USERS (PK_USER),
-	REGISTRATION_DATE TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-	APPOINTMENT_DATE DATE,
-	HOUR_APPOINTMENT TIME,
-	IS_CANCELLED BOOLEAN NOT NULL
+-- ==============================
+-- USERS_SPECIALTIES
+-- ==============================
+CREATE TABLE IF NOT EXISTS users_specialties (
+    id_user_specialty SERIAL PRIMARY KEY,
+    fk_user INT REFERENCES users(id_user) NOT NULL,
+    fk_specialty INT REFERENCES specialties(id_specialty) NOT NULL,
+    UNIQUE(fk_user, fk_specialty)
 );
 
-CREATE TABLE IF NOT EXISTS SPECIALTIES_AND_APPOINTMENTS (
-	PK_SPECIALTY_AND_APPOINTMENT SERIAL PRIMARY KEY,
-	FK_SPECIALTY BIGINT REFERENCES SPECIALTIES (PK_SPECIALTY) NOT NULL,
-	FK_APPOINTMENT BIGINT REFERENCES APPOINTMENTS (PK_APPOINTMENT) NOT NULL,
-	UNIQUE (FK_SPECIALTY, FK_APPOINTMENT)
+-- Trigger para validar que solo DOCTORES puedan tener especialidades
+CREATE OR REPLACE FUNCTION validate_user_specialty()
+RETURNS TRIGGER AS $$
+DECLARE
+    user_role INT;
+BEGIN
+    SELECT fk_role INTO user_role FROM users WHERE id_user = NEW.fk_user;
+
+    IF user_role <> 2 THEN
+        RAISE EXCEPTION 'User % is not a doctor, cannot assign specialty', NEW.fk_user;
+    END IF;
+
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER trg_validate_user_specialty
+BEFORE INSERT OR UPDATE ON users_specialties
+FOR EACH ROW
+EXECUTE FUNCTION validate_user_specialty();
+
+-- ==============================
+-- APPOINTMENTS
+-- ==============================
+CREATE TABLE IF NOT EXISTS appointments (
+    id_appointment SERIAL PRIMARY KEY,
+    fk_patient INT REFERENCES users(id_user) NOT NULL,
+    fk_doctor INT REFERENCES users(id_user) NOT NULL,
+    registration_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    appointment_date DATE NOT NULL,
+    appointment_time TIME NOT NULL,
+    status VARCHAR(20) NOT NULL CHECK (status IN ('SCHEDULED', 'COMPLETED', 'CANCELLED'))
 );
 
-CREATE TABLE IF NOT EXISTS HISTORIES (
-	PK_HISTORY SERIAL PRIMARY KEY NOT NULL,
-	FK_USER BIGINT REFERENCES USERS (PK_USER),
-	FK_APPOINTMENT BIGINT REFERENCES APPOINTMENTS (PK_APPOINTMENT),
-	DESCRIPTION TEXT NOT NULL,
-	RECIPE TEXT NOT NULL,
-	DATE TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+-- Trigger para validar roles de doctor y paciente
+CREATE OR REPLACE FUNCTION validate_appointment_roles()
+RETURNS TRIGGER AS $$
+DECLARE
+    role_patient INT;
+    role_doctor INT;
+BEGIN
+    SELECT fk_role INTO role_patient FROM users WHERE id_user = NEW.fk_patient;
+    SELECT fk_role INTO role_doctor FROM users WHERE id_user = NEW.fk_doctor;
+
+    IF role_patient <> 1 THEN
+        RAISE EXCEPTION 'User % is not a patient', NEW.fk_patient;
+    END IF;
+
+    IF role_doctor <> 2 THEN
+        RAISE EXCEPTION 'User % is not a doctor', NEW.fk_doctor;
+    END IF;
+
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER trg_validate_appointment_roles
+BEFORE INSERT OR UPDATE ON appointments
+FOR EACH ROW
+EXECUTE FUNCTION validate_appointment_roles();
+
+-- ==============================
+-- HISTORIES
+-- ==============================
+CREATE TABLE IF NOT EXISTS histories (
+    id_history SERIAL PRIMARY KEY,
+    fk_patient INT REFERENCES users(id_user) NOT NULL,
+    fk_doctor INT REFERENCES users(id_user) NOT NULL,
+    fk_appointment INT REFERENCES appointments(id_appointment) NOT NULL,
+    description TEXT NOT NULL,
+    prescription TEXT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-INSERT INTO
-	ROLES (ROL)
-VALUES
-	('PACIENTE'),
-	('DOCTOR'),
-	('ADMINISTRADOR');
+-- Trigger para validar que fk_doctor sea doctor y fk_patient paciente
+CREATE OR REPLACE FUNCTION validate_history_roles()
+RETURNS TRIGGER AS $$
+DECLARE
+    role_patient INT;
+    role_doctor INT;
+BEGIN
+    SELECT fk_role INTO role_patient FROM users WHERE id_user = NEW.fk_patient;
+    SELECT fk_role INTO role_doctor FROM users WHERE id_user = NEW.fk_doctor;
+
+    IF role_patient <> 1 THEN
+        RAISE EXCEPTION 'User % is not a patient', NEW.fk_patient;
+    END IF;
+
+    IF role_doctor <> 2 THEN
+        RAISE EXCEPTION 'User % is not a doctor', NEW.fk_doctor;
+    END IF;
+
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER trg_validate_history_roles
+BEFORE INSERT OR UPDATE ON histories
+FOR EACH ROW
+EXECUTE FUNCTION validate_history_roles();
+
+-- ==============================
+-- SEED DATA
+-- ==============================
+INSERT INTO roles (role_name) VALUES
+    ('PATIENT'),
+    ('DOCTOR'),
+    ('ADMIN');
