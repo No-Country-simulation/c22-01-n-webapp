@@ -3,12 +3,16 @@ import { User } from "./users.model";
 
 @Entity("roles")
 export class Role {
-  @PrimaryGeneratedColumn()
-  pk_rol: number;
+	@PrimaryGeneratedColumn()
+	id_role: number;
 
-  @Column({ length: 50 })
-  rol: string;
+	@Column({
+		type: "varchar",
+		length: 50,
+		nullable: false,
+	})
+	role_name: string;
 
-  @OneToMany(() => User, (user) => user.role)
-  users: User[];
+	@OneToMany(() => User, (user) => user.role)
+	users: User[];
 }

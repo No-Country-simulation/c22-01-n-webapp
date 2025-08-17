@@ -1,56 +1,104 @@
 import {
-  Entity,
-  PrimaryGeneratedColumn,
-  Column,
-  ManyToOne,
-  JoinColumn,
-  OneToMany,
-  Check,
+	Entity,
+	PrimaryGeneratedColumn,
+	Column,
+	ManyToOne,
+	OneToMany,
+	JoinColumn,
 } from "typeorm";
 import { Role } from "./roles.model";
 import { Appointment } from "./appointments.model";
 import { History } from "./histories.model";
+import { UserSpecialty } from "./users_specialties.model";
 
 @Entity("users")
-@Check(`"fk_rol" = 2 OR "specialty" IS NULL`)
 export class User {
-  @PrimaryGeneratedColumn()
-  pk_user: number;
+	@PrimaryGeneratedColumn()
+	id_user: number;
 
-  @Column({ length: 25 })
-  name: string;
+	@Column({
+		type: "varchar",
+		length: 50,
+		nullable: false,
+	})
+	first_name: string;
 
-  @Column({ length: 25 })
-  lastname: string;
+	@Column({
+		type: "varchar",
+		length: 50,
+		nullable: false,
+	})
+	last_name: string;
 
-  @Column({ type: "int" })
-  age: number;
+	@Column({
+		type: "varchar",
+		length: 255,
+		unique: true,
+		nullable: false,
+	})
+	email: string;
 
-  @Column({ unique: true, length: 255 })
-  email: string;
+	@Column({
+		type: "varchar",
+		length: 255,
+		nullable: false,
+	})
+	password: string;
 
-  @Column({ length: 255 })
-  password: string;
+	@Column({
+		type: "varchar",
+		length: 5,
+		nullable: false,
+	})
+	document_type: string;
 
-  @Column({ unique: true, length: 100 })
-  dni: string;
+	@Column({
+		type: "varchar",
+		length: 30,
+		unique: true,
+		nullable: false,
+	})
+	document_number: string;
 
-  @Column({ type: "text", nullable: true })
-  picture: string | null;
+	@Column({
+		type: "varchar",
+		length: 20,
+		unique: true,
+		nullable: false,
+	})
+	phone: string;
 
-  @Column({ length: 20, unique: true })
-  phone: string;
+	@Column({
+		type: "text",
+		nullable: true,
+	})
+	picture: string;
 
-  @ManyToOne(() => Role, (role) => role.users)
-  @JoinColumn({ name: "fk_rol" })
-  role: Role;
+	@Column({
+		type: "varchar",
+		length: 50,
+		nullable: true,
+	})
+	license_number: string;
 
-  @Column({ type: "varchar", length: 25, nullable: true })
-  specialty: string | null;
+	@ManyToOne(() => Role, (role) => role.users, {
+		nullable: false,
+	})
+	@JoinColumn({ name: "fk_role" })
+	role: Role;
 
-  @OneToMany(() => Appointment, (appointment) => appointment.user)
-  appointments: Appointment[];
+	@OneToMany(() => Appointment, (appointment) => appointment.patient)
+	patientAppointments: Appointment[];
 
-  @OneToMany(() => History, (history) => history.user)
-  histories: History[];
+	@OneToMany(() => Appointment, (appointment) => appointment.doctor)
+	doctorAppointments: Appointment[];
+
+	@OneToMany(() => History, (history) => history.patient)
+	patientHistories: History[];
+
+	@OneToMany(() => History, (history) => history.doctor)
+	doctorHistories: History[];
+
+	@OneToMany(() => UserSpecialty, (us) => us.user)
+	specialties: UserSpecialty[];
 }

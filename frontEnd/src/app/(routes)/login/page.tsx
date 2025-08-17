@@ -1,6 +1,7 @@
 "use client";
 import PageContainer from "@/components/common/PageContainer";
 import axios from "axios";
+import Link from "next/link";
 import { useState } from "react";
 
 const LoginPage = () => {
@@ -89,13 +90,14 @@ const LoginPage = () => {
 							>
 								Ingresar
 							</button>
-							<button
-								type="button"
-								onClick={() => window.history.back()}
-								className="bg-red-400 lg:bg-red-300 hover:bg-red-500 text-white font-bold py-2 px-4 rounded-lg transition duration-300 w-full sm:w-auto mt-3"
-							>
-								Regresar
-							</button>
+							<Link href="/">
+								<button
+									type="button"
+									className="bg-red-400 lg:bg-red-300 hover:bg-red-500 text-white font-bold py-2 px-4 rounded-lg transition duration-300 w-full sm:w-auto mt-3"
+								>
+									Cancelar
+								</button>
+							</Link>
 						</div>
 					</form>
 				</div>

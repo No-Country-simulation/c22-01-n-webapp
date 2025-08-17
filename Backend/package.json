@@ -21,6 +21,8 @@
     "bcryptjs": "^2.4.3",
     "c22-01-n-webapp": "file:",
     "cors": "^2.8.5",
+    "date-fns": "^4.1.0",
+    "date-fns-tz": "^3.2.0",
     "express": "^4.21.1",
     "gauge": "^3.0.2",
     "glob": "^7.2.3",

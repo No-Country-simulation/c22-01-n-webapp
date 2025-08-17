@@ -1,43 +1,58 @@
 import {
-  Entity,
-  PrimaryGeneratedColumn,
-  Column,
-  ManyToOne,
-  OneToMany,
-  CreateDateColumn,
-  JoinColumn,
+	Entity,
+	PrimaryGeneratedColumn,
+	Column,
+	ManyToOne,
+	JoinColumn,
+	OneToMany,
 } from "typeorm";
 import { User } from "./users.model";
-import { SpecialtyAndAppointment } from "./specialtiesandappointments.model";
 import { History } from "./histories.model";
 
 @Entity("appointments")
 export class Appointment {
-  @PrimaryGeneratedColumn()
-  pk_appointment: number;
+	@PrimaryGeneratedColumn()
+	id_appointment: number;
 
-  @CreateDateColumn({ name: "registration_date" })
-  registrationDate: Date;
+	@ManyToOne(() => User, (user) => user.patientAppointments, {
+		nullable: false,
+	})
+	@JoinColumn({
+		name: "fk_patient",
+	})
+	patient: User;
 
-  @Column({ name: "appointment_date", nullable: true })
-  appointmentDate: Date;
+	@ManyToOne(() => User, (user) => user.doctorAppointments, {
+		nullable: false,
+	})
+	@JoinColumn({ name: "fk_doctor" })
+	doctor: User;
 
-  @Column({ name: "hour_appointment", type: "time", nullable: true })
-  hourAppointment: string;
+	@Column({
+		type: "timestamp",
+		default: () => "CURRENT_TIMESTAMP",
+	})
+	registration_date: Date;
 
-  @Column({ name: "is_cancelled", default: false })
-  isCancelled: boolean;
+	@Column({
+		type: "date",
+		nullable: false,
+	})
+	appointment_date: string;
 
-  @ManyToOne(() => User, (user) => user.appointments)
-  @JoinColumn({ name: "fk_user" })
-  user: User;
+	@Column({
+		type: "time",
+		nullable: false,
+	})
+	appointment_time: string;
 
-  @OneToMany(
-    () => SpecialtyAndAppointment,
-    (specialtyAndAppointment) => specialtyAndAppointment.appointment
-  )
-  specialtiesAppointments: SpecialtyAndAppointment[];
+	@Column({
+		type: "varchar",
+		length: 20,
+		nullable: false,
+	})
+	status: string; // 'SCHEDULED', 'COMPLETED', 'CANCELLED'
 
-  @OneToMany(() => History, (history) => history.appointment)
-  histories: History[];
+	@OneToMany(() => History, (history) => history.appointment)
+	histories: History[];
 }
